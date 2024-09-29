@@ -1,4 +1,4 @@
-/src/__pycache__
-/src/fish_module.py
-/src/flowers_module.py
-/src/test.py
+/calculators/__pycache__
+/calculators/fish.py
+/calculators/flowers.py
+/calculators/test.py
