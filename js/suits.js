@@ -1,4 +1,6 @@
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 export default class SuitsCalculator {
     constructor(data) {
@@ -7,7 +9,10 @@ export default class SuitsCalculator {
 
         @param {string} data - JSON containing the toon's suits progress.
         */
-        this.suits_info = JSON.parse(fs.readFileSync("../data/suits.json", 'utf8'));
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+        const jsonPath = path.join(__dirname, '../data/suits.json');
+        this.suits_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
         this.toon = JSON.parse(data);
     }
 
