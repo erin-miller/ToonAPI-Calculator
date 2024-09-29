@@ -7,8 +7,10 @@ export default class GolfCalculator {
 
         @param {string} data: JSON containing the toon's golf progress.
         */
-        const fileContent = fs.readFileSync("../data/golf_trophies.json", 'utf8');
-        this.golf_info = JSON.parse(fileContent).trophies;
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+        const jsonPath = path.join(__dirname, '../data/golf_trophies.json');
+        this.golf_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8')).trophies;
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
