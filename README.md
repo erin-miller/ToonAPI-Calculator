@@ -19,5 +19,5 @@ There are 3 available calculators:
 You can import each class like in the example below.
 
 ```javascript
-import GolfCalculator from toonapi-calculator;
+import GolfCalculator from toonapi-calculator/js/golf.js;
 ```
