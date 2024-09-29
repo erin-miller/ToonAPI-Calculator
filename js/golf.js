@@ -5,7 +5,7 @@ export default class GolfCalculator {
         /**
         Initializes the golf calculator.
 
-        @param {JSON String} data: JSON containing the toon's golf progress.
+        @param {string} data: JSON containing the toon's golf progress.
         */
         const fileContent = fs.readFileSync("../data/golf_trophies.json", 'utf8');
         this.golf_info = JSON.parse(fileContent).trophies;
