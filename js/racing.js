@@ -7,7 +7,7 @@ export default class RacingCalculator {
 
         data (JSON String): JSON containing the toon's race progress.
         */
-        const fileContent = fs.readFileSync("./data/race_trophies.json", 'utf8');
+        const fileContent = fs.readFileSync("../data/race_trophies.json", 'utf8');
         this.race_info = JSON.parse(fileContent).trophies;
 
         this.toon = JSON.parse(data);

@@ -7,7 +7,7 @@ export default class SuitsCalculator {
 
         data (JSON String): JSON containing the toon's suits progress.
         */
-        this.suits_info = JSON.parse(fs.readFileSync("./data/suits.json", 'utf8'));
+        this.suits_info = JSON.parse(fs.readFileSync("../data/suits.json", 'utf8'));
         this.toon = JSON.parse(data);
     }
 
