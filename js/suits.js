@@ -2,20 +2,20 @@ import fs from 'fs';
 
 export default class SuitsCalculator {
     constructor(data) {
-        /*
+        /**
         Initializes the suits calculator.
 
-        data (JSON String): JSON containing the toon's suits progress.
+        @param {string} data - JSON containing the toon's suits progress.
         */
         this.suits_info = JSON.parse(fs.readFileSync("../data/suits.json", 'utf8'));
         this.toon = JSON.parse(data);
     }
 
     #getFacilityData(department) {
-        /*
+        /**
         Grabs facility data based off of department.
 
-        department (String): Value in [c,l,m,s]
+        @param {string} department - Value in [c,l,m,s]
 
         Returns: The corresponding department's facility information and values
         */
@@ -24,12 +24,12 @@ export default class SuitsCalculator {
     }
 
     getBestPath(department) {
-        /*
+        /**
         Returns the optimal facility path to get to promotion.
 
-        department (String): Value in [c,l,m,s]
+        @param {string} department - Value in [c,l,m,s]
 
-        Returns: JSON object with optimal path and total value
+        @returns {Object[]} - JSON with optimal path and total value
             If toon is maxed or has promotion, it will return with a message.
             If toon does not have a disguise, it will return with a message.
         */

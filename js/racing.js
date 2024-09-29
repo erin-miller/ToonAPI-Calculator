@@ -2,10 +2,10 @@ import fs from 'fs';
 
 export default class RacingCalculator {
     constructor(data) {
-        /*
+        /**
         Initializes the racing calculator.
 
-        data (JSON String): JSON containing the toon's race progress.
+        @param {string} data: JSON containing the toon's race progress.
         */
         const fileContent = fs.readFileSync("../data/race_trophies.json", 'utf8');
         this.race_info = JSON.parse(fileContent).trophies;
@@ -15,10 +15,10 @@ export default class RacingCalculator {
     }
 
     getBestTrophy() {
-        /*
+        /**
         Finds the easiest trophies to complete (closest to next requirement)
 
-        Returns: JSON containing list of all uncompleted trophies. Index 0 has the easiest trophy.
+        @returns {Object[]} - JSON containing list of all uncompleted trophies. Index 0 has the easiest trophy.
             Each trophy has the following format:
                 name: The trophy's name (generalized)
                 progress.current: The current progress
@@ -44,7 +44,7 @@ export default class RacingCalculator {
         }
 
         trophies.sort((a, b) => a.progress.difference - b.progress.difference);
-        return JSON.stringify(trophies);
+        return trophies;
     }
 }
 
