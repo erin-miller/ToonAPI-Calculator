@@ -1,0 +1,48 @@
+{
+    "trophies": [
+        {
+            "description": "Speedway Wins",
+            "values": [1, 5, 25]
+        },
+        {
+            "description": "Rural Wins",
+            "values": [1, 5, 25]
+        },
+        {
+            "description": "Urban Wins",
+            "values": [1, 5, 25]
+        },
+        {
+            "description": "Total Wins",
+            "values": [50]
+        },
+        {
+            "description": "Speedway Qualify Count",
+            "values": [1, 10, 50]
+        },
+        {
+            "description": "Rural Qualify Count",
+            "values": [1, 10, 50]
+        },
+        {
+            "description": "Urban Qualify Count",
+            "values": [1, 10, 50]
+        },
+        {
+            "description": "Total Qualify Count",
+            "values": [100]
+        },
+        {
+            "description": "Tournament Race Wins",
+            "values": [5]
+        },
+        {
+            "description": "Tournament Race Qualify Count",
+            "values": [1, 3, 5, 7, 9, 11, 13, 15]
+        },
+        {
+            "description": "Unique race tracks completed",
+            "values": [12]
+        }
+    ]
+}

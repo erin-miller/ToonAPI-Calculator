@@ -1,7 +1,8 @@
 import json
 from fish_module import FishCalculator
 from golf_module import GolfCalculator
+from racing_module import RacingCalculator
 
-calc = GolfCalculator('[{"name":"Courses Completed","num":99},{"name":"Courses Under Par","num":50},{"name":"Hole In One Shots","num":7},{"name":"Eagle Or Better Shots","num":120},{"name":"Birdie Or Better Shots","num":400},{"name":"Par Or Better Shots","num":1},{"name":"Multiplayer Courses Completed","num":200},{"name":"Walk In The Par Wins","num":24},{"name":"Hole Some Fun Wins","num":10},{"name":"The Hole Kit And Caboodle Wins","num":1}]')
+calc = RacingCalculator('[{"name":"Speedway Wins","num":4},{"name":"Rural Wins","num":3},{"name":"Urban Wins","num":2},{"name":"Total Wins","num":10},{"name":"Speedway Qualify Count","num":1},{"name":"Rural Qualify Count","num":1000},{"name":"Urban Qualify Count","num":1000},{"name":"Total Qualify Count","num":1000},{"name":"Tournament Race Wins","num":4},{"name":"Tournament Race Qualify Count","num":6},{"name":"Unique race tracks completed","num":10}]')
 
 print(calc.get_best_trophy())
