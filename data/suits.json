@@ -1,0 +1,29 @@
+{
+    "suitTypes": {
+        "c": { "name": "Bossbot", "facility": "cgc" },
+        "l": { "name": "Lawbot", "facility": "wing" },
+        "m": { "name": "Cashbot", "facility": "mint" },
+        "s": { "name": "Sellbot", "facility": "factory" }
+      },
+    "facilities": {
+        "cgc": [
+            { "name": "Final Fringe", "value": 2180 },
+            { "name": "First Fairway", "value": 900 }
+        ],
+        "wing": [
+            { "name": "Senior", "value": 1900 },
+            { "name": "Junior", "value": 808 }
+        ],
+        "mint": [
+            { "name": "Bullion", "value": 1600 },
+            { "name": "Coin", "value": 735 }
+        ],
+        "factory": [
+          { "name": "long Steel", "value": 1525 },
+          { "name": "short Steel", "value": 900 },
+          { "name": "long Scrap", "value": 609 },
+          { "name": "short Scrap", "value": 400 }
+        ]
+    }
+  }
+  
