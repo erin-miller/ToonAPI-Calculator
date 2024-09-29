@@ -1,265 +1,378 @@
 {
-  "0": {
-    "name": "Balloon Fish",
-    "album": {
+    "rod": {
+      "id": 4,
+      "name": "Gold"
+    },
+    "collection": {
       "0": {
         "name": "Balloon Fish",
-        "weight": 47
-      },
-      "1": {
-        "name": "Hot Air Balloon Fish",
-        "weight": 16
+        "album": {
+          "0": {
+            "name": "Balloon Fish",
+            "weight": 48
+          },
+          "1": {
+            "name": "Hot Air Balloon Fish",
+            "weight": 16
+          },
+          "2": {
+            "name": "Weather Balloon Fish",
+            "weight": 78
+          },
+          "3": {
+            "name": "Water Balloon Fish",
+            "weight": 74
+          },
+          "4": {
+            "name": "Red Balloon Fish",
+            "weight": 62
+          }
+        }
       },
       "2": {
-        "name": "Weather Balloon Fish",
-        "weight": 65
-      },
-      "3": {
-        "name": "Water Balloon Fish",
-        "weight": 68
-      },
-      "4": {
-        "name": "Red Balloon Fish",
-        "weight": 61
-      }
-    }
-  },
-  "2": {
-    "name": "Cat Fish",
-    "album": {
-      "0": {
         "name": "Cat Fish",
-        "weight": 89
-      },
-      "2": {
-        "name": "Alley Cat Fish",
-        "weight": 105
-      },
-      "3": {
-        "name": "Tabby Cat Fish",
-        "weight": 85
+        "album": {
+          "0": {
+            "name": "Cat Fish",
+            "weight": 95
+          },
+          "1": {
+            "name": "Siamese Cat Fish",
+            "weight": 85
+          },
+          "2": {
+            "name": "Alley Cat Fish",
+            "weight": 173
+          },
+          "3": {
+            "name": "Tabby Cat Fish",
+            "weight": 90
+          },
+          "4": {
+            "name": "Tom Cat Fish",
+            "weight": 174
+          }
+        }
       },
       "4": {
-        "name": "Tom Cat Fish",
-        "weight": 160
-      }
-    }
-  },
-  "4": {
-    "name": "Clown Fish",
-    "album": {
-      "0": {
         "name": "Clown Fish",
-        "weight": 118
+        "album": {
+          "0": {
+            "name": "Clown Fish",
+            "weight": 127
+          },
+          "1": {
+            "name": "Sad Clown Fish",
+            "weight": 126
+          },
+          "2": {
+            "name": "Party Clown Fish",
+            "weight": 127
+          },
+          "3": {
+            "name": "Circus Clown Fish",
+            "weight": 125
+          }
+        }
       },
-      "1": {
-        "name": "Sad Clown Fish",
-        "weight": 107
-      },
-      "2": {
-        "name": "Party Clown Fish",
-        "weight": 125
-      },
-      "3": {
-        "name": "Circus Clown Fish",
-        "weight": 91
-      }
-    }
-  },
-  "6": {
-    "name": "Frozen Fish",
-    "album": {
-      "0": {
+      "6": {
         "name": "Frozen Fish",
-        "weight": 160
-      }
-    }
-  },
-  "8": {
-    "name": "Star Fish",
-    "album": {
-      "0": {
+        "album": {
+          "0": {
+            "name": "Frozen Fish",
+            "weight": 190
+          }
+        }
+      },
+      "8": {
         "name": "Star Fish",
-        "weight": 79
+        "album": {
+          "0": {
+            "name": "Star Fish",
+            "weight": 80
+          },
+          "1": {
+            "name": "Five Star Fish",
+            "weight": 95
+          },
+          "2": {
+            "name": "Rock Star Fish",
+            "weight": 158
+          },
+          "3": {
+            "name": "Shining Star Fish",
+            "weight": 79
+          },
+          "4": {
+            "name": "All Star Fish",
+            "weight": 35
+          }
+        }
       },
-      "1": {
-        "name": "Five Star Fish",
-        "weight": 91
+      "10": {
+        "name": "Holey Mackerel",
+        "album": {
+          "0": {
+            "name": "Holey Mackerel",
+            "weight": 151
+          }
+        }
       },
-      "2": {
-        "name": "Rock Star Fish",
-        "weight": 149
-      },
-      "3": {
-        "name": "Shining Star Fish",
-        "weight": 71
-      }
-    }
-  },
-  "12": {
-    "name": "Dog Fish",
-    "album": {
-      "0": {
+      "12": {
         "name": "Dog Fish",
-        "weight": 165
+        "album": {
+          "0": {
+            "name": "Dog Fish",
+            "weight": 237
+          },
+          "1": {
+            "name": "Bull Dog Fish",
+            "weight": 317
+          },
+          "2": {
+            "name": "Hot Dog Fish",
+            "weight": 76
+          },
+          "3": {
+            "name": "Dalmatian Dog Fish",
+            "weight": 107
+          },
+          "4": {
+            "name": "Puppy Dog Fish",
+            "weight": 32
+          }
+        }
       },
-      "2": {
-        "name": "Hot Dog Fish",
-        "weight": 47
-      },
-      "3": {
-        "name": "Dalmatian Dog Fish",
-        "weight": 104
-      },
-      "4": {
-        "name": "Puppy Dog Fish",
-        "weight": 30
-      }
-    }
-  },
-  "14": {
-    "name": "Amore Eel",
-    "album": {
-      "0": {
+      "14": {
         "name": "Amore Eel",
-        "weight": 88
+        "album": {
+          "0": {
+            "name": "Amore Eel",
+            "weight": 95
+          },
+          "1": {
+            "name": "Electric Amore Eel",
+            "weight": 94
+          }
+        }
       },
-      "1": {
-        "name": "Electric Amore Eel",
-        "weight": 45
-      }
-    }
-  },
-  "16": {
-    "name": "Nurse Shark",
-    "album": {
-      "0": {
+      "16": {
         "name": "Nurse Shark",
-        "weight": 162
+        "album": {
+          "0": {
+            "name": "Nurse Shark",
+            "weight": 189
+          },
+          "1": {
+            "name": "Clara Nurse Shark",
+            "weight": 174
+          },
+          "2": {
+            "name": "Florence Nurse Shark",
+            "weight": 173
+          }
+        }
       },
-      "1": {
-        "name": "Clara Nurse Shark",
-        "weight": 98
-      }
-    }
-  },
-  "18": {
-    "name": "King Crab",
-    "album": {
-      "0": {
+      "18": {
         "name": "King Crab",
-        "weight": 61
+        "album": {
+          "0": {
+            "name": "King Crab",
+            "weight": 64
+          },
+          "1": {
+            "name": "Alaskan King Crab",
+            "weight": 125
+          },
+          "2": {
+            "name": "Old King Crab",
+            "weight": 82
+          }
+        }
       },
-      "1": {
-        "name": "Alaskan King Crab",
-        "weight": 109
-      }
-    }
-  },
-  "20": {
-    "name": "Moon Fish",
-    "album": {
-      "0": {
+      "20": {
         "name": "Moon Fish",
-        "weight": 92
+        "album": {
+          "0": {
+            "name": "Moon Fish",
+            "weight": 96
+          },
+          "1": {
+            "name": "Full Moon Fish",
+            "weight": 275
+          },
+          "2": {
+            "name": "Half Moon Fish",
+            "weight": 150
+          },
+          "3": {
+            "name": "New Moon Fish",
+            "weight": 16
+          },
+          "4": {
+            "name": "Crescent Moon Fish",
+            "weight": 87
+          },
+          "5": {
+            "name": "Harvest Moon Fish",
+            "weight": 221
+          }
+        }
       },
-      "3": {
-        "name": "New Moon Fish",
-        "weight": 16
-      },
-      "4": {
-        "name": "Crescent Moon Fish",
-        "weight": 81
-      },
-      "5": {
-        "name": "Harvest Moon Fish",
-        "weight": 188
-      }
-    }
-  },
-  "22": {
-    "name": "Sea Horse",
-    "album": {
-      "0": {
+      "22": {
         "name": "Sea Horse",
-        "weight": 192
-      }
-    }
-  },
-  "24": {
-    "name": "Pool Shark",
-    "album": {
-      "0": {
+        "album": {
+          "0": {
+            "name": "Sea Horse",
+            "weight": 255
+          },
+          "1": {
+            "name": "Rocking Sea Horse",
+            "weight": 288
+          },
+          "2": {
+            "name": "Clydesdale Sea Horse",
+            "weight": 318
+          },
+          "3": {
+            "name": "Arabian Sea Horse",
+            "weight": 315
+          }
+        }
+      },
+      "24": {
         "name": "Pool Shark",
-        "weight": 167
+        "album": {
+          "0": {
+            "name": "Pool Shark",
+            "weight": 175
+          },
+          "1": {
+            "name": "Kiddie Pool Shark",
+            "weight": 184
+          },
+          "2": {
+            "name": "Swimming Pool Shark",
+            "weight": 184
+          },
+          "3": {
+            "name": "Olympic Pool Shark",
+            "weight": 230
+          }
+        }
       },
-      "1": {
-        "name": "Kiddie Pool Shark",
-        "weight": 128
+      "26": {
+        "name": "Bear Acuda",
+        "album": {
+          "0": {
+            "name": "Brown Bear Acuda",
+            "weight": 282
+          },
+          "1": {
+            "name": "Black Bear Acuda",
+            "weight": 280
+          },
+          "2": {
+            "name": "Koala Bear Acuda",
+            "weight": 284
+          },
+          "3": {
+            "name": "Honey Bear Acuda",
+            "weight": 283
+          },
+          "4": {
+            "name": "Polar Bear Acuda",
+            "weight": 309
+          },
+          "5": {
+            "name": "Panda Bear Acuda",
+            "weight": 310
+          },
+          "6": {
+            "name": "Kodiac Bear Acuda",
+            "weight": 271
+          },
+          "7": {
+            "name": "Grizzly Bear Acuda",
+            "weight": 270
+          }
+        }
       },
-      "2": {
-        "name": "Swimming Pool Shark",
-        "weight": 168
-      },
-      "3": {
-        "name": "Olympic Pool Shark",
-        "weight": 128
-      }
-    }
-  },
-  "26": {
-    "name": "Bear Acuda",
-    "album": {
-      "1": {
-        "name": "Black Bear Acuda",
-        "weight": 175
-      },
-      "2": {
-        "name": "Koala Bear Acuda",
-        "weight": 183
-      },
-      "4": {
-        "name": "Polar Bear Acuda",
-        "weight": 192
-      }
-    }
-  },
-  "28": {
-    "name": "Cutthroat Trout",
-    "album": {
-      "0": {
+      "28": {
         "name": "Cutthroat Trout",
-        "weight": 121
+        "album": {
+          "0": {
+            "name": "Cutthroat Trout",
+            "weight": 157
+          },
+          "1": {
+            "name": "Captain Cutthroat Trout",
+            "weight": 120
+          },
+          "2": {
+            "name": "Scurvy Cutthroat Trout",
+            "weight": 103
+          }
+        }
       },
-      "1": {
-        "name": "Captain Cutthroat Trout",
-        "weight": 86
+      "30": {
+        "name": "Piano Tuna",
+        "album": {
+          "0": {
+            "name": "Piano Tuna",
+            "weight": 270
+          },
+          "1": {
+            "name": "Grand Piano Tuna",
+            "weight": 296
+          },
+          "2": {
+            "name": "Baby Grand Piano Tuna",
+            "weight": 231
+          },
+          "3": {
+            "name": "Upright Piano Tuna",
+            "weight": 280
+          },
+          "4": {
+            "name": "Player Piano Tuna",
+            "weight": 277
+          }
+        }
       },
-      "2": {
-        "name": "Scurvy Cutthroat Trout",
-        "weight": 87
-      }
-    }
-  },
-  "32": {
-    "name": "Peanut Butter & Jellyfish",
-    "album": {
-      "0": {
+      "32": {
         "name": "Peanut Butter & Jellyfish",
-        "weight": 79
+        "album": {
+          "0": {
+            "name": "Peanut Butter & Jellyfish",
+            "weight": 79
+          },
+          "1": {
+            "name": "Grape PB&J Fish",
+            "weight": 79
+          },
+          "2": {
+            "name": "Crunchy PB&J Fish",
+            "weight": 76
+          },
+          "3": {
+            "name": "Strawberry PB&J Fish",
+            "weight": 80
+          },
+          "4": {
+            "name": "Concord Grape PB&J Fish",
+            "weight": 52
+          }
+        }
       },
-      "1": {
-        "name": "Grape PB&J Fish",
-        "weight": 74
-      },
-      "2": {
-        "name": "Crunchy PB&J Fish",
-        "weight": 70
-      },
-      "3": {
-        "name": "Strawberry PB&J Fish",
-        "weight": 59
+      "34": {
+        "name": "Devil Ray",
+        "album": {
+          "0": {
+            "name": "Devil Ray",
+            "weight": 183
+          }
+        }
       }
     }
   }
-}
