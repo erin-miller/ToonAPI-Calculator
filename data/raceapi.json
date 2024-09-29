@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Speedway Wins",
+    "num": 0
+  },
+  {
+    "name": "Rural Wins",
+    "num": 0
+  },
+  {
+    "name": "Urban Wins",
+    "num": 0
+  },
+  {
+    "name": "Total Wins",
+    "num": 0
+  },
+  {
+    "name": "Speedway Qualify Count",
+    "num": 0
+  },
+  {
+    "name": "Rural Qualify Count",
+    "num": 0
+  },
+  {
+    "name": "Urban Qualify Count",
+    "num": 0
+  },
+  {
+    "name": "Total Qualify Count",
+    "num": 0
+  },
+  {
+    "name": "Tournament Race Wins",
+    "num": 0
+  },
+  {
+    "name": "Tournament Race Qualify Count",
+    "num": 0
+  },
+  {
+    "name": "Unique race tracks completed",
+    "num": 0
+  }
+]

@@ -165,9 +165,9 @@ class FishCalculator:
         probabilities = {}
         all_locs = self._sort_all_fish_by_location()
 
-        for fish in all_locs:
+        # for fish in all_locs:
 
-        return best_locals
+        # return best_locals
 
        
     def sort_best_fish(self):
