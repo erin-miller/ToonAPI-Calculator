@@ -13,10 +13,26 @@ class SuitsCalculator:
         self.toon = json.loads(data)
     
     def _get_facility_data(self, department):
+        '''
+        Grabs facility data based off of department.
+
+        department (String): Value in [c,l,m,s]
+
+        Returns: The corresponding department's facility information and values
+        '''
         facility = self.suits_info['suitTypes'][department]['facility']
         return self.suits_info['facilities'][facility]
 
     def get_best_path(self, department):
+        '''
+        Returns the optimal facility path to get to promotion.
+
+        department (String): Value in [c,l,m,s]
+
+        Returns: JSON object with optimal path and total value
+            If toon is maxed or has promotion, it will return with a message.
+            If toon does not have a disguise, it will return with a message.
+        '''
         facility_info = self._get_facility_data(department)
         toon_info = self.toon[department]
 

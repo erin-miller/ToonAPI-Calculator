@@ -14,6 +14,16 @@ class RacingCalculator:
         self.toon = {trophy['name']: trophy['num'] for trophy in self.toon}
         
     def get_best_trophy(self):
+        '''
+        Finds the easiest trophies to complete (closest to next requirement)
+
+        Returns: JSON containing list of all uncompleted trophies. Index 0 has the easiest trophy.
+            Each trophy has the following format:
+                name: The trophy's name (generalized)
+                progress.current: The current progress
+                progress.required: The next required trophy value.
+                progress.difference: The difference to the requirement.
+        '''
         trophies = []
         for trophy in self.race_info:
             count = self.toon.get(trophy['description'])
