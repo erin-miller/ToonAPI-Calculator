@@ -1,0 +1,110 @@
+{
+    "shovels": {
+        "Tin Shovel": [
+            {
+                "points_min": 0,
+                "points_max": 39,
+                "jellybeans": 1
+            },
+            {
+                "points_min": 40,
+                "points_max": 79,
+                "jellybeans": 2
+            }
+        ],
+        "Bronze Shovel": [
+            {
+                "points_min": 0,
+                "points_max": 79,
+                "jellybeans": 3
+            },
+            {
+                "points_min": 80,
+                "points_max": 159,
+                "jellybeans": 4
+            }
+        ],
+        "Silver Shovel": [
+            {
+                "points_min": 0,
+                "points_max": 159,
+                "jellybeans": 5
+            },
+            {
+                "points_min": 160,
+                "points_max": 319,
+                "jellybeans": 6
+            }
+        ],
+        "Gold Shovel": [
+            {
+                "points_min": 0,
+                "points_max": 319,
+                "jellybeans": 7
+            },
+            {
+                "points_min": 320,
+                "points_max": 639,
+                "jellybeans": 8
+            }
+        ]
+    },
+    "flowers": {
+        "1": [
+            "Laff-o-dil",
+            "Dandy Pansy",
+            "What-in Carnation",
+            "School Daisy",
+            "Lily-of-the-Alley"
+        ],
+        "2": [
+            "Daffy Dill",
+            "Chim Pansy",
+            "Instant Carnation",
+            "Lazy Daisy",
+            "Lily Pad"
+        ],
+        "3": [
+            "Summer's Last Rose",
+            "Potsen Pansy",
+            "Hybrid Carnation",
+            "Midsummer Daisy",
+            "Tiger Lily"
+        ],
+        "4": [
+            "Corn Rose",
+            "Giraff-o-dil",
+            "Marzi Pansy",
+            "Freshasa Daisy",
+            "Livered Lily"
+        ],
+        "5": [
+            "Time and a half-o-dil",
+            "Onelip",
+            "Side Carnation",
+            "Whoopsie Daisy",
+            "Chili Lily"
+        ],
+        "6": [
+            "Tinted Rose",
+            "Smarty Pansy",
+            "Twolip",
+            "Upsy Daisy",
+            "Silly Lily"
+        ],
+        "7": [
+            "Stinking Rose",
+            "Car Petunia",
+            "Model Carnation",
+            "Crazy Daisy",
+            "Indubitab Lily"
+        ],
+        "8": [
+            "Istilla Rose",
+            "Threelip",
+            "Platoonia",
+            "Hazy Dazy",
+            "Dilly Lilly"
+        ]
+    }    
+}
