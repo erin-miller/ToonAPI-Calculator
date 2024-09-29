@@ -46,5 +46,20 @@ export default class RacingCalculator {
         trophies.sort((a, b) => a.progress.difference - b.progress.difference);
         return trophies;
     }
+
+    getCurrentProgress() {
+        /**
+         * Finds how many laff points the toon has remaining. (1/2/3)
+         * 
+         * @returns {int} - containing how many laff boosts the toon has acquired
+         */
+        let count = 0;
+        for (const trophy of this.race_info) {
+            if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
+                count += 1;
+            }
+        }
+        return Math.floor(count / 10);
+    }
 }
 
