@@ -1,4 +1,6 @@
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 export default class FishCalculator {
     constructor(data) {
@@ -11,8 +13,9 @@ export default class FishCalculator {
         const __dirname = path.dirname(__filename);
 
         const fishPath = path.join(__dirname, '../data/fish.json');
-        const locationPath = path.join(__dirname, '../data/fish.json');
         this.fishingInfo = JSON.parse(fs.readFileSync(fishPath, 'utf8'));
+
+        const locationPath = path.join(__dirname, '../data/location.json');
         this.locationInfo = JSON.parse(fs.readFileSync(locationPath, 'utf8'));
 
         const toon = JSON.parse(data);
@@ -70,15 +73,15 @@ export default class FishCalculator {
         /**
          * Finds all fish that can be caught by the desired rod.
          *
-         * @returns {Array} gathered_fish - The fish that can be caught by rod.
+         * @returns {Array} gatheredFish - The fish that can be caught by rod.
          */
-        let gathered_fish = [];
+        let gatheredFish = [];
         for (let fish of this.fishingInfo.fish) {
             if (fish.weight_min <= this.rodInfo['weight-max']) {
-                gathered_fish.push(fish);
+                gatheredFish.push(fish);
             }
         }
-        return gathered_fish;
+        return gatheredFish;
     }
 
     getNew() {
@@ -97,27 +100,26 @@ export default class FishCalculator {
          * If location is a street and a fish has the corresponding playground, they are added again.
          *
          * @param {string} location - The location to get fish from.
-         * @returns {Array} gathered_fish - The fish at location.
+         * @returns {Array} gatheredFish - The fish at location.
          */
-        let gathered_fish = [];
+        let gatheredFish = [];
         for (let fish of this.getNew()) {
             if (fish.locations.includes(location)) {
-                gathered_fish.push(fish);
+                gatheredFish.push(fish);
             }
             if (fish.locations.includes('Anywhere')) {
-                gathered_fish.push(fish);
+                gatheredFish.push(fish);
             }
 
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
                 if (streets.includes(location)) {
                     if (fish.locations.includes(playground)) {
-                        gathered_fish.push(fish);
+                        gatheredFish.push(fish);
                     }
                 }
             }
         }
-
-        return gathered_fish;
+        return gatheredFish;
     }
 
     getByLocationRarity(location, rarity, arr) {
@@ -127,9 +129,9 @@ export default class FishCalculator {
          * @param {string} location - The location to get fish from.
          * @param {int} rarity - The desired rarity.
          * @param {Array} arr - Array to find fish with desired location and rarity
-         * @returns {Array} gathered_fish - The fish at location with rarity
+         * @returns {Array} gatheredFish - The fish at location with rarity
          */
-        let gathered_fish = [];
+        let gatheredFish = [];
         for (let fish of arr) {
             let rarityIndex = fish.rarity + fish.locations.indexOf(location);
             // fish rarity caps at 10
@@ -137,14 +139,14 @@ export default class FishCalculator {
 
             if (fish.locations.includes(location)) {
                 if (rarityIndex == rarity) {
-                    gathered_fish.push(fish);
+                    gatheredFish.push(fish);
                 }
             } else if (fish.locations.includes('Anywhere')) {
                 // rarity index changes since Anywhere might be in a different index
                 rarityIndex = fish.rarity + fish.locations.indexOf('Anywhere')
                 if (rarityIndex > 10) { rarityIndex = 10; }
                 if (rarityIndex == rarity) {
-                    gathered_fish.push(fish);
+                    gatheredFish.push(fish);
                 }
             }
             
@@ -155,14 +157,14 @@ export default class FishCalculator {
                         rarityIndex = fish.rarity + fish.locations.indexOf(playground)
                         if (rarityIndex > 10) { rarityIndex = 10; }
                         if (rarityIndex == rarity) {
-                            gathered_fish.push(fish);
+                            gatheredFish.push(fish);
                         }
                     }
                 }
             }
         }
 
-        return gathered_fish;
+        return gatheredFish;
     }
 
     sortByLocation() {
@@ -170,19 +172,19 @@ export default class FishCalculator {
          * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on location. Fish may be listed twice if 
          * they are available in various locations.
          *
-         * @returns {Object} gathered_fish - Catchable fish sorted by location. 
+         * @returns {Object} gatheredFish - Catchable fish sorted by location. 
          */
-        let gathered_fish = {};
+        let gatheredFish = {};
         for (let fish of getNew()) {
             for (let location of fish.locations) {
-                if (!(location in gathered_fish)) {
+                if (!(location in gatheredFish)) {
                     // add new location to array
-                    gathered_fish[location] = [];
+                    gatheredFish[location] = [];
                 }
-                gathered_fish[location].push(fish);
+                gatheredFish[location].push(fish);
             }
         }
-        return gathered_fish;
+        return gatheredFish;
     }
 
     sortByRarity() {
@@ -190,19 +192,19 @@ export default class FishCalculator {
          * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on their rarity. Fish may 
          * be listed twice if they are available in various locations.
          *
-         * @returns {Object} gathered_fish - Catchable, uncaught fish sorted by rarity. 
+         * @returns {Object} gatheredFish - Catchable, uncaught fish sorted by rarity. 
          */
-        let gathered_fish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
+        let gatheredFish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
         for (let fish of this.getNew()) {
             let rarity_scale = fish.rarity;
             for (let location of fish.locations) {
-                gathered_fish[rarity_scale].push(fish);
+                gatheredFish[rarity_scale].push(fish);
                 if (rarity_scale < 10) { // max fish rarity
                     rarity_scale++;
                 }
             }
         }
-        return gathered_fish;
+        return gatheredFish;
     }
 
     sortBestLocation() {
