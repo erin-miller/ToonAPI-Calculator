@@ -24,36 +24,6 @@ export default class FishCalculator {
         this.catchable = this.getCatchable();
     }
 
-    #getCaught(toon) {
-        /**
-         * Finds and organizes all fish the toon has caught.
-         * 
-         * @param {string} toon - JSON containing the toon's fish information from the API
-         * @returns {Object[]} - JSON of the organized fish
-         */
-        const fish = [];
-        // extract fish from grouped fish types
-        for (const key in toon.collection) {
-            const album = toon.collection[key].album;
-            for (const type in album) {
-                fish.push(album[type].name);
-            }
-        }
-        return fish;
-    }
-    
-    #intersect(arr1, arr2) {
-        /**
-         * Intersects two arrays.
-         * 
-         * @param {Array} arr1 - first array
-         * @param {Array} arr2 - second array
-         * @returns {Array} intersected - intersection of both arrays
-         */
-        arr1 = new Set(this.catchable);
-        return arr2.filter(value => arr1.has(value));
-    }
-
     getUncaught() {
         /**
          * Finds all fish the toon hasn't caught.
@@ -239,6 +209,36 @@ export default class FishCalculator {
             probabilities.push(this.#getBestLocation(fish))
         }
         return probabilities.sort((a,b) => b.probability - a.probability);
+    }
+    
+    #getCaught(toon) {
+        /**
+         * Finds and organizes all fish the toon has caught.
+         * 
+         * @param {string} toon - JSON containing the toon's fish information from the API
+         * @returns {Object[]} - JSON of the organized fish
+         */
+        const fish = [];
+        // extract fish from grouped fish types
+        for (const key in toon.collection) {
+            const album = toon.collection[key].album;
+            for (const type in album) {
+                fish.push(album[type].name);
+            }
+        }
+        return fish;
+    }
+    
+    #intersect(arr1, arr2) {
+        /**
+         * Intersects two arrays.
+         * 
+         * @param {Array} arr1 - first array
+         * @param {Array} arr2 - second array
+         * @returns {Array} intersected - intersection of both arrays
+         */
+        arr1 = new Set(this.catchable);
+        return arr2.filter(value => arr1.has(value));
     }
 
     #getBestLocation(fish) {
