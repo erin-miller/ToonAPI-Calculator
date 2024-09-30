@@ -9,7 +9,10 @@ import FishCalculator from './js/fish.js';
 
 const calc = new FishCalculator();
 const best = calc.sortBestRarity();
-best.forEach(fish => {
-    const perc = (fish.probability * 100).toFixed(2);
-    console.log(`${fish.name}: ${perc}%`);
-})
+Object.entries(best).forEach(([location, fishArray]) => {
+    fishArray.forEach(fish => {
+        const perc = (fish.probability * 100).toFixed(2);
+        console.log(`${fish.name} (${location}): ${perc}%`);
+    });
+});
+
