@@ -15,7 +15,7 @@ export default class FishCalculator {
         const fishPath = path.join(__dirname, '../data/fish.json');
         this.fishingInfo = JSON.parse(fs.readFileSync(fishPath, 'utf8'));
 
-        const locationPath = path.join(__dirname, '../data/location.json');
+        const locationPath = path.join(__dirname, '../data/locations.json');
         this.locationInfo = JSON.parse(fs.readFileSync(locationPath, 'utf8'));
 
         const toon = JSON.parse(data);
