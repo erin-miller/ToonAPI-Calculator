@@ -214,7 +214,7 @@ export default class FishCalculator {
         let bestLocation = {};
         // populate probabilities with fish in all locations
         for (const fish of this.getNew()) {
-            const fishData = this.#getBestLocation(fish);
+            const fishData = this.#getRarityByLocation(fish);
             for (const pond of fishData) {
                 const loc = pond['location'];
                 if (!(loc in bestLocation)) {
@@ -234,66 +234,36 @@ export default class FishCalculator {
          */
         let probabilities = [];
         for (const fish of this.getNew()) {
-            probabilities.push(this.#getBestRarity(fish))
+            probabilities.push(this.#getBestLocation(fish))
         }
         return probabilities.sort((a,b) => b.probability - a.probability);
     }
 
-    #getBestRarity(fish) {
-        const probabilities = [];
-        const fishRarity = fish['rarity'];
-        const fishRarityPlus = fishRarity < 10 ? fishRarity+1 : fishRarity;
-        const rodProbability = this.rodInfo['probability'][fishRarity-1]
-        const rodProbabilityPlus = this.rodInfo['probability'][fishRarityPlus-1];
-
-        for (const loc of fish['locations']) {
-            let relatedFish;
-            let rarityFriends;
-            let numFish;
-            if (loc == 'Anywhere' && probabilities.length > 0) {
-                // add rarity to all previous locations
-                rarityFriends = this.sortByRarity()[fishRarityPlus];
-                relatedFish = this.getByLocationRarity(loc, fishRarityPlus, rarityFriends);
-                numFish = relatedFish.length > 0 ? relatedFish.length : 1;
-                for (let entry of probabilities) {
-                    entry.probability += rodProbabilityPlus / numFish;
-                }
-            } else {
-                rarityFriends = this.sortByRarity()[fishRarity];
-                relatedFish = this.getByLocationRarity(loc, fishRarity, rarityFriends);
-                numFish = relatedFish.length > 0 ? relatedFish.length : 1;
-                probabilities.push( { 
-                    name: fish['name'], 
-                    probability: rodProbability / numFish, 
-                    location: loc 
-                })
-                
-                // add twice if fish is located in street and playground
-                for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                    if (streets.includes(loc)) {
-                        if (fish.locations.includes(playground)) {
-                            rarityFriends = this.sortByRarity()[fishRarityPlus];
-                            relatedFish = this.getByLocationRarity(loc, fishRarityPlus, rarityFriends);
-                            numFish = relatedFish.length > 0 ? relatedFish.length : 1;
-
-                            const prev = probabilities.find(entry => entry.location === loc);
-                            prev.probability += rodProbabilityPlus / numFish;
-                        };
-                    }
-                }
-            }
-
-        }
-        return probabilities.reduce((best, curr) => 
+    #getBestLocation(fish) {
+        /**
+         * Chooses highest probability fish location.
+         * 
+         * @param {Array} fish - to determine probabilities of
+         * @returns {Array} - element of best fish location
+         */
+        return this.#getRarityByLocation(fish).reduce((best, curr) => 
             curr.probability > best.probability ? curr : best,
             { probability: 0, location: null }  
         );
     }
     
-    #getBestLocation(fish) {
+    #getRarityByLocation(fish) {
+        /**
+         * Finds all of fish's probabilities at all their locations.
+         * 
+         * @param {Array} fish - to determine probabilities of
+         * @returns {Array} - elements of fish probabilities at each location
+         */
         const probabilities = [];
+
         const fishRarity = fish['rarity'];
         const fishRarityPlus = fishRarity < 10 ? fishRarity+1 : fishRarity;
+        
         const rodProbability = this.rodInfo['probability'][fishRarity-1]
         const rodProbabilityPlus = this.rodInfo['probability'][fishRarityPlus-1];
 
@@ -301,15 +271,18 @@ export default class FishCalculator {
             let relatedFish;
             let rarityFriends;
             let numFish;
+
             if (loc == 'Anywhere' && probabilities.length > 0) {
-                // add rarity to all previous locations
+                // anywhere is an extra location; add rarity to all previous locations
                 rarityFriends = this.sortByRarity()[fishRarityPlus];
                 relatedFish = this.getByLocationRarity(loc, fishRarityPlus, rarityFriends);
                 numFish = relatedFish.length > 0 ? relatedFish.length : 1;
                 for (let entry of probabilities) {
                     entry.probability += rodProbabilityPlus / numFish;
                 }
+
             } else {
+                // add base rarity 
                 rarityFriends = this.sortByRarity()[fishRarity];
                 relatedFish = this.getByLocationRarity(loc, fishRarity, rarityFriends);
                 numFish = relatedFish.length > 0 ? relatedFish.length : 1;
@@ -319,7 +292,7 @@ export default class FishCalculator {
                     location: loc 
                 })
                 
-                // add twice if fish is located in street and playground
+                // add twice if fish occurs twice in one pond
                 for (let [playground, streets] of Object.entries(this.locationInfo)) {
                     if (streets.includes(loc) && fish.locations.includes(playground)) {
                             rarityFriends = this.sortByRarity()[fishRarityPlus];
@@ -328,11 +301,9 @@ export default class FishCalculator {
 
                             const prev = probabilities.find(entry => entry.location === loc);
                             prev.probability += rodProbabilityPlus / numFish;
-                            
                     }
                 }
             }
-
         }
         return probabilities;
     }
