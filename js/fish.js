@@ -24,6 +24,40 @@ export default class FishCalculator {
         this.catchable = this.getCatchable();
     }
 
+    sortBestLocation() {
+        /**
+         * Finds the chance of catching a new fish at all locations.
+         * 
+         * @returns {Object[]} - sorted locations with chance to catch a new fish, descending
+         */
+        let bestLocation = {};
+        // populate probabilities with fish in all locations
+        for (const fish of this.getNew()) {
+            const fishData = this.#getRarityByLocation(fish);
+            for (const pond of fishData) {
+                const loc = pond['location'];
+                if (!(loc in bestLocation)) {
+                    bestLocation[loc] = 0;
+                }
+                bestLocation[loc] += pond['probability']; 
+            }
+        }
+        return Object.entries(bestLocation).sort((a,b) => b[1] - a[1]);
+    }
+
+    sortBestRarity() {
+        /**
+         * Sorts all fish by most likely to get new. 
+         * 
+         * @returns {Array} - sorted fish with their best location, descending
+         */
+        let probabilities = [];
+        for (const fish of this.getNew()) {
+            probabilities.push(this.#getBestLocation(fish))
+        }
+        return probabilities.sort((a,b) => b.probability - a.probability);
+    }
+
     getUncaught() {
         /**
          * Finds all fish the toon hasn't caught.
@@ -177,40 +211,6 @@ export default class FishCalculator {
         return gatheredFish;
     }
 
-    sortBestLocation() {
-        /**
-         * Finds the chance of catching a new fish at all locations.
-         * 
-         * @returns {Object[]} - sorted locations with chance to catch a new fish, descending
-         */
-        let bestLocation = {};
-        // populate probabilities with fish in all locations
-        for (const fish of this.getNew()) {
-            const fishData = this.#getRarityByLocation(fish);
-            for (const pond of fishData) {
-                const loc = pond['location'];
-                if (!(loc in bestLocation)) {
-                    bestLocation[loc] = 0;
-                }
-                bestLocation[loc] += pond['probability']; 
-            }
-        }
-        return Object.entries(bestLocation).sort((a,b) => b[1] - a[1]);
-    }
-
-    sortBestRarity() {
-        /**
-         * Sorts all fish by most likely to get new. 
-         * 
-         * @returns {Array} - sorted fish with their best location, descending
-         */
-        let probabilities = [];
-        for (const fish of this.getNew()) {
-            probabilities.push(this.#getBestLocation(fish))
-        }
-        return probabilities.sort((a,b) => b.probability - a.probability);
-    }
-    
     #getCaught(toon) {
         /**
          * Finds and organizes all fish the toon has caught.
