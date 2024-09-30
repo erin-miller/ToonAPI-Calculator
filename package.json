@@ -18,6 +18,5 @@
   },
   "homepage": "https://github.com/erin-miller/ToonAPI-Calculator#readme",
   "dependencies": {
-    "toonapi-calculator": "^1.0.1"
   }
 }
