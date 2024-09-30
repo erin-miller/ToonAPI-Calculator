@@ -11,6 +11,7 @@ There are 3 available calculators:
 - Golf
 - Racing
 - Suits
+- Fishing
 
 You can import each class like in the example below.
 
