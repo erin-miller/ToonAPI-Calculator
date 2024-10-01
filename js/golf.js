@@ -51,7 +51,7 @@ export default class GolfCalculator {
             }
         }
 
-        trophies.sort((a, b) => a.progress.difference - b.progress.difference);
+        trophies.sort((a, b) => a.score - b.score || a.progress.difference - b.progress.difference);
         return trophies;
     }
 
