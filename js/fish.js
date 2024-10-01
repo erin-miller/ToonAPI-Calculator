@@ -94,7 +94,7 @@ export default class FishCalculator {
          * 
          * @returns {Array} - all uncaught, catchable fish
          */
-        return this.#intersect(this.getUncaught(), this.getCatchable());
+        return this.catchable.filter(fish => !this.caught.includes(fish.name));
     }
 
     getByLocation(location) {
