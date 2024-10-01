@@ -42,3 +42,4 @@ yarn-error.log*
 # Others
 /py/
 /js/flowers.js
+/js/tests.js
