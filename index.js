@@ -5,9 +5,9 @@ export { default as GolfCalculator } from './js/golf.js';
 export { default as RacingCalculator } from './js/racing.js';
 export { default as SuitsCalculator } from './js/suits.js';
 
-import GolfCalculator from './js/golf.js';
+import RacingCalculator from './js/racing.js';
 
-const toon = '[{"name": "Courses Completed", "num": 92},{"name": "Courses Under Par", "num": 54},{"name": "Hole In One Shots", "num": 52},{"name": "Eagle Or Better Shots", "num": 44},{"name": "Birdie Or Better Shots", "num": 160},{"name": "Par Or Better Shots", "num": 171},{"name": "Multiplayer Courses Completed", "num": 92},{"name": "Walk In The Par Wins", "num": 5},{"name": "Hole Some Fun Wins", "num": 7},{"name": "The Hole Kit And Caboodle Wins", "num": 10}]';
-const golf = new GolfCalculator(toon);
+const toon = '[{"name": "Speedway Wins", "num": 1}, {"name": "Rural Wins", "num": 3}, {"name": "Urban Wins", "num": 4}, {"name": "Total Wins", "num": 3}, {"name": "Speedway Qualify Count", "num": 2}, {"name": "Rural Qualify Count", "num": 4}, {"name": "Urban Qualify Count", "num": 6}, {"name": "Total Qualify Count", "num": 4}, {"name": "Tournament Race Wins", "num": 4}, {"name": "Tournament Race Qualify Count", "num": 3}, {"name": "Unique race tracks completed", "num": 2}]';
+const race = new RacingCalculator(toon);
 
-console.log(golf.getBestTrophy());
+console.log(race.getBestTrophy());
