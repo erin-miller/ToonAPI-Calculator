@@ -228,18 +228,6 @@ export default class FishCalculator {
         }
         return fish;
     }
-    
-    #intersect(arr1, arr2) {
-        /**
-         * Intersects two arrays.
-         * 
-         * @param {Array} arr1 - first array
-         * @param {Array} arr2 - second array
-         * @returns {Array} intersected - intersection of both arrays
-         */
-        arr1 = new Set(this.catchable);
-        return arr2.filter(value => arr1.has(value));
-    }
 
     #getBestLocation(fish) {
         /**
