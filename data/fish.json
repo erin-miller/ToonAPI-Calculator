@@ -178,7 +178,7 @@
             "weight_min": 2,
             "weight_max": 8,
             "rarity": 6,
-            "locations": ["Toontown Central", "Anywhere"]
+            "locations": ["Toontown Central", "Minnie's Melodyland"]
         },
         {
             "name": "Frozen Fish",
@@ -203,15 +203,15 @@
         },
         {
             "name": "Rock Star Fish",
-            "weight_min": 1,
-            "weight_max": 5,
+            "weight_min": 5,
+            "weight_max": 11,
             "rarity": 5,
             "locations": ["Minnie's Melodyland", "Anywhere"]
         },
         {
             "name": "Shining Star Fish",
-            "weight_min": 5,
-            "weight_max": 10,
+            "weight_min": 4,
+            "weight_max": 9,
             "rarity": 7,
             "locations": ["Estate", "Anywhere"]
         },
