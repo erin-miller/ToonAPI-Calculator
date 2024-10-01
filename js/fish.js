@@ -58,6 +58,22 @@ export default class FishCalculator {
         return probabilities.sort((a,b) => b.probability - a.probability);
     }
 
+    getBuckets(fish) {
+        /**
+         * Estimates number of buckets you need to fill to be 90% sure you catch the desired fish
+         * 
+         * @param {Object[]} fish - desired fish
+         * @returns estimated number of buckets
+         */
+        const confidence = 1 - 0.90;
+        const bucketCapacity = 20;
+        const catchProb = fish.probability;
+        const missProb = 1 - catchProb;
+
+        let attempts = Math.log(confidence) / Math.log(missProb);
+        return Math.ceil(attempts / bucketCapacity);
+    }
+
     getUncaught() {
         /**
          * Finds all fish the toon hasn't caught.
@@ -294,6 +310,10 @@ export default class FishCalculator {
                     }
                 }
             }
+        }
+
+        for (const fish of probabilities) {
+            fish.buckets = this.getBuckets(fish);
         }
         return probabilities;
     }
