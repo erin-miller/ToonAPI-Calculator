@@ -6,7 +6,7 @@ npm install toonapi-calculator
 
 ## Usage
 
-There are 3 available calculators:
+There are 4 available calculators:
 
 - Golf
 - Racing
