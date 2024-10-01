@@ -34,13 +34,17 @@ export default class GolfCalculator {
             const count = this.toon[trophy.description];
             for (const req of trophy.values) {
                 if (count < req) {
+                    const diff = req - count;
+                    const weight = trophy.weight;
+                    const score = weight * diff;
                     trophies.push({
                         name: trophy.description,
                         progress: {
                             current: count,
                             required: req,
-                            difference: req - count,
-                        }
+                            difference: diff
+                        },
+                        score: score
                     });
                     break;
                 }
