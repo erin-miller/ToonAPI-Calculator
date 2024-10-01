@@ -154,19 +154,21 @@ export default class FishCalculator {
         let gatheredFish = [];
         for (let fish of arr) {
             let rarityIndex = fish.rarity + fish.locations.indexOf(location);
-            // fish rarity caps at 10
-            if (rarityIndex > 10) { rarityIndex = 10; }
-
-            if (fish.locations.includes(location)) {
-                if (rarityIndex == rarity) {
-                    gatheredFish.push(fish);
-                }
-            } else if (fish.locations.includes('Anywhere')) {
-                // rarity index changes since Anywhere might be in a different index
-                rarityIndex = fish.rarity + fish.locations.indexOf('Anywhere')
+            if (!gatheredFish.includes(fish)) {
+                // fish rarity caps at 10
                 if (rarityIndex > 10) { rarityIndex = 10; }
-                if (rarityIndex == rarity) {
-                    gatheredFish.push(fish);
+    
+                if (fish.locations.includes(location)) {
+                    if (rarityIndex == rarity) {
+                        gatheredFish.push(fish);
+                    }
+                } else if (fish.locations.includes('Anywhere')) {
+                    // rarity index changes since Anywhere might be in a different index
+                    rarityIndex = fish.rarity + fish.locations.indexOf('Anywhere')
+                    if (rarityIndex > 10) { rarityIndex = 10; }
+                    if (rarityIndex == rarity) {
+                        gatheredFish.push(fish);
+                    }
                 }
             }
             
@@ -174,10 +176,12 @@ export default class FishCalculator {
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
                 if (streets.includes(location)) {
                     if (fish.locations.includes(playground)) {
-                        rarityIndex = fish.rarity + fish.locations.indexOf(playground)
-                        if (rarityIndex > 10) { rarityIndex = 10; }
-                        if (rarityIndex == rarity) {
-                            gatheredFish.push(fish);
+                        if (!gatheredFish.includes(fish)) {
+                            rarityIndex = fish.rarity + fish.locations.indexOf(playground)
+                            if (rarityIndex > 10) { rarityIndex = 10; }
+                            if (rarityIndex == rarity) {
+                                gatheredFish.push(fish);
+                            }
                         }
                     }
                 }
