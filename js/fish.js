@@ -182,17 +182,17 @@ export default class FishCalculator {
         return Math.ceil(attempts / bucketCapacity);
     }
 
-    #getByLocationRarity(location, rarity, arr) {
+    #getByLocationRarity(location, rarity, filterFish) {
         /**
          * Finds ALL UNCAUGHT, CATCHABLE fish at the desired location with specified rarity.
          *
          * @param {string} location - The location to get fish from.
          * @param {int} rarity - The desired rarity.
-         * @param {Array} arr - Array to find fish with desired location and rarity
+         * @param {Array} filterFish - Array to find fish with desired location and rarity
          * @returns {Array} gatheredFish - The fish at location with rarity
          */
         let gatheredFish = [];
-        for (let fish of arr) {
+        for (let fish of filterFish) {
             let rarityIndex = fish.rarity + fish.locations.indexOf(location);
             if (!(gatheredFish.includes(fish))) {
                 // fish rarity caps at 10
