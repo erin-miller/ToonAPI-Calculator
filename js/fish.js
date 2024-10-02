@@ -192,7 +192,6 @@ export default class FishCalculator {
          * @returns {Array} gatheredFish - The fish at location with rarity
          */
         let gatheredFish = [];
-        let rarityIndex;
 
         const fishMatch = (loc, rar, fish) => {
             const rarityIndex = this.#getRarity(fish, loc);
@@ -226,9 +225,6 @@ export default class FishCalculator {
          * @returns {Array} containing the smallest location and its fish
          */
         const locations = {}
-        let minLength = Infinity;
-        let minLocation = null;
-
         for (const fish of filterFish) {
             for (const loc of fish.locations) {
                 if (loc != 'Anywhere') {
@@ -236,12 +232,16 @@ export default class FishCalculator {
                         locations[loc] = [];
                     }
                     locations[loc].push(fish);
-                    // track smallest location
-                    if (locations[loc].length < minLength) {
-                        minLength = locations[loc].length;
-                        minLocation = loc;
-                    }
                 }
+            }
+        }
+
+        let minLength = Infinity;
+        let minLocation = null;
+        for (const loc in locations) {
+            if (locations[loc].length < minLength) {
+                minLength = locations[loc].length;
+                minLocation = loc;
             }
         }
         return locations[minLocation];
