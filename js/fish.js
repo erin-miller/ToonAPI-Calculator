@@ -209,7 +209,7 @@ export default class FishCalculator {
             // fish can get added if they have a street and playground
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
                 if (streets.includes(location) && fish.locations.includes(playground) && !(gatheredFish.includes(fish))) {
-                    rarityIndex = fish.rarity + fish.locations.indexOf(playground)
+                    rarityIndex = this.#getRarity(fish, playground);
                     if (rarityIndex == rarity) {
                         gatheredFish.push(fish);
                     }
