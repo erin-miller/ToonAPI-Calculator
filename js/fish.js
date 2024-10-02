@@ -142,6 +142,46 @@ export default class FishCalculator {
         return gatheredFish;
     }
 
+    sortByLocation() {
+        /**
+         * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on location. Fish may be listed twice if 
+         * they are available in various locations.
+         *
+         * @returns {Object} gatheredFish - Catchable fish sorted by location. 
+         */
+        let gatheredFish = {};
+        for (let fish of getNew()) {
+            for (let location of fish.locations) {
+                if (!(location in gatheredFish)) {
+                    // add new location to array
+                    gatheredFish[location] = [];
+                }
+                gatheredFish[location].push(fish);
+            }
+        }
+        return gatheredFish;
+    }
+
+    sortByRarity() {
+        /**
+         * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on their rarity. Fish may 
+         * be listed twice if they are available in various locations.
+         *
+         * @returns {Object} gatheredFish - Catchable, uncaught fish sorted by rarity. 
+         */
+        let gatheredFish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
+        for (let fish of this.getNew()) {
+            let rarity_scale = fish.rarity;
+            for (let location of fish.locations) {
+                gatheredFish[rarity_scale].push(fish);
+                if (rarity_scale < 10) { // max fish rarity
+                    rarity_scale++;
+                }
+            }
+        }
+        return gatheredFish;
+    }
+
     #getByLocationRarity(location, rarity, arr) {
         /**
          * Finds ALL UNCAUGHT, CATCHABLE fish at the desired location with specified rarity.
@@ -213,46 +253,6 @@ export default class FishCalculator {
             }
         }
         return locations[minLocation];
-    }
-
-    sortByLocation() {
-        /**
-         * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on location. Fish may be listed twice if 
-         * they are available in various locations.
-         *
-         * @returns {Object} gatheredFish - Catchable fish sorted by location. 
-         */
-        let gatheredFish = {};
-        for (let fish of getNew()) {
-            for (let location of fish.locations) {
-                if (!(location in gatheredFish)) {
-                    // add new location to array
-                    gatheredFish[location] = [];
-                }
-                gatheredFish[location].push(fish);
-            }
-        }
-        return gatheredFish;
-    }
-
-    sortByRarity() {
-        /**
-         * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on their rarity. Fish may 
-         * be listed twice if they are available in various locations.
-         *
-         * @returns {Object} gatheredFish - Catchable, uncaught fish sorted by rarity. 
-         */
-        let gatheredFish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
-        for (let fish of this.getNew()) {
-            let rarity_scale = fish.rarity;
-            for (let location of fish.locations) {
-                gatheredFish[rarity_scale].push(fish);
-                if (rarity_scale < 10) { // max fish rarity
-                    rarity_scale++;
-                }
-            }
-        }
-        return gatheredFish;
     }
 
     #getCaught(toon) {
