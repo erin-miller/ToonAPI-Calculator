@@ -19,7 +19,7 @@ export default class FishCalculator {
         this.locationInfo = JSON.parse(fs.readFileSync(locationPath, 'utf8'));
 
         const toon = JSON.parse(data);
-        this.rodInfo = this.fishingInfo.rods[toon.rod['name']];
+        this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaught(toon);
         this.catchable = this.getCatchable();
     }
@@ -35,11 +35,11 @@ export default class FishCalculator {
         for (const fish of this.getNew()) {
             const fishData = this.#getRarityByLocation(fish);
             for (const pond of fishData) {
-                const loc = pond['location'];
+                const loc = pond.location;
                 if (!(loc in bestLocation)) {
                     bestLocation[loc] = 0;
                 }
-                bestLocation[loc] += pond['probability']; 
+                bestLocation[loc] += pond.probability; 
             }
         }
         return Object.entries(bestLocation).sort((a,b) => b[1] - a[1]);
@@ -97,7 +97,7 @@ export default class FishCalculator {
          */
         let gatheredFish = [];
         for (let fish of this.fishingInfo.fish) {
-            if (fish.weight_min <= this.rodInfo['weight-max']) {
+            if (fish.weight_min <= this.rodInfo.weight_max) {
                 gatheredFish.push(fish);
             }
         }
@@ -305,7 +305,7 @@ export default class FishCalculator {
          */
         const probabilities = [];
         let related;
-        for (const loc of fish['locations']) {
+        for (const loc of fish.locations) {
             const rarityFriends = this.sortByRarity()[this.#getRarity(fish,loc)];
             // related.length is incremented to account for fish not being found
             if (loc == 'Anywhere') {
