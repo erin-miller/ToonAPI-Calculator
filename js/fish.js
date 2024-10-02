@@ -75,7 +75,7 @@ export default class FishCalculator {
 
     getCatchable() {
         /**
-         * Finds all fish that can be caught by the desired rod.
+         * Finds all fish that can be caught.
          *
          * @returns {Array} gatheredFish - The fish that can be caught by rod.
          */
