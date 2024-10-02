@@ -33,7 +33,7 @@ export default class FishCalculator {
         let bestLocation = {};
         // populate probabilities with fish in all locations
         for (const fish of this.getNew()) {
-            const fishData = this.#getRarityByLocation(fish);
+            const fishData = this.#getLocationProbabilities(fish);
             for (const pond of fishData) {
                 const loc = pond.location;
                 if (!(loc in bestLocation)) {
@@ -53,7 +53,7 @@ export default class FishCalculator {
          */
         let probabilities = [];
         for (const fish of this.getNew()) {
-            probabilities.push(this.#getBestLocation(fish))
+            probabilities.push(this.#getHighestProbability(fish))
         }
         return probabilities.sort((a,b) => b.probability - a.probability);
     }
@@ -266,14 +266,14 @@ export default class FishCalculator {
         return fish;
     }
 
-    #getBestLocation(fish) {
+    #getHighestProbability(fish) {
         /**
          * Chooses highest probability fish location.
          * 
          * @param {Array} fish - to determine probabilities of
          * @returns {Array} - element of best fish location
          */
-        return this.#getRarityByLocation(fish).reduce((best, curr) => 
+        return this.#getLocationProbabilities(fish).reduce((best, curr) => 
             curr.probability > best.probability ? curr : best,
             { probability: 0, location: null }  
         );
@@ -303,7 +303,7 @@ export default class FishCalculator {
         return this.rodInfo.probability[rarity-1];
     }
     
-    #getRarityByLocation(fish) {
+    #getLocationProbabilities(fish) {
         /**
          * Finds all of fish's probabilities at all their locations.
          * 
