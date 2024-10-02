@@ -5,10 +5,10 @@ import { fileURLToPath } from 'url';
 export default class SuitsCalculator {
     constructor(data) {
         /**
-        Initializes the suits calculator.
-
-        @param {string} data - JSON containing the toon's suits progress.
-        */
+         *Initializes the suits calculator.
+         *
+         * @param {string} data - JSON containing the toon's suits progress.
+         */
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
         const jsonPath = path.join(__dirname, '../data/suits.json');
@@ -18,36 +18,48 @@ export default class SuitsCalculator {
 
     #getFacilityData(department) {
         /**
-        Grabs facility data based off of department.
-
-        @param {string} department - Value in [c,l,m,s]
-        @returns The corresponding department's facility information and values
-        */
+         * Grabs facility data based off of department.
+         *
+         * @param {string} department - Value in [c,l,m,s]
+         * @returns The corresponding department's facility information and values
+         */
         const facility = this.suits_info.suitTypes[department].facility;
         return this.suits_info.facilities[facility];
     }
 
     getCurrent(department) {
+        /**
+         * @param {string} department - Value in [c,l,m,s]
+         * @returns Toon's current promo experience
+         */
         return this.toon[department].promotion.current;
     }
 
     getTarget(department) {
+        /**
+         * @param {string} department - Value in [c,l,m,s]
+         * @returns Toon's current target experience
+         */
         return this.toon[department].promotion.target;
     }
 
     getNeeded(department) {
+        /**
+         * @param {string} department - Value in [c,l,m,s]
+         * @returns Toon's needed experience to promo
+         */
         return this.getTarget(department) - this.getCurrent(department);
     }
 
     getBestPath(department) {
         /**
-        Returns the optimal facility path to get to promotion.
-
-        @param {string} department - Value in [c,l,m,s]
-        @returns {Object[]} - JSON with optimal path and total value
-            If toon is maxed or has promotion, it will return with a message.
-            If toon does not have a disguise, it will return with a message.
-        */
+         * Returns the optimal facility path to get to promotion.
+         *
+         * @param {string} department - Value in [c,l,m,s]
+         * @returns {Object[]} - JSON with optimal path and total value
+         *   If toon is maxed or has promotion, it will return with a message.
+         *   If toon does not have a disguise, it will return with a message.
+         */
         const facilityInfo = this.#getFacilityData(department);
         const toonInfo = this.toon[department];
 
