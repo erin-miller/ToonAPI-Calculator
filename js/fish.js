@@ -332,6 +332,16 @@ export default class FishCalculator {
                     probability: this.#getRodRarity(fish,loc) / related.length, 
                     location: loc 
                 })
+
+                // add twice if fish occurs twice in one pond
+                for (let [playground, streets] of Object.entries(this.locationInfo)) {
+                    if (streets.includes(loc) && fish.locations.includes(playground)) {
+                            const pgFriends = this.sortByRarity()[this.#getRarity(fish,playground)];
+                            related = this.#getByLocationRarity(playground, this.#getRarity(fish,playground), pgFriends);
+                            const prev = probabilities.find(entry => entry.location === loc);
+                            prev.probability += this.#getRodRarity(fish,playground) / related.length;
+                    }
+                }
             }
         }
 
