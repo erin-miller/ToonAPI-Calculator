@@ -178,7 +178,7 @@ export default class FishCalculator {
         const catchProb = fish.probability;
         const missProb = 1 - catchProb;
 
-        let attempts = Math.log(confidence) / Math.log(missProb);
+        const attempts = Math.log(confidence) / Math.log(missProb);
         return Math.ceil(attempts / bucketCapacity);
     }
 
