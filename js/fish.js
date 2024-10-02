@@ -155,11 +155,11 @@ export default class FishCalculator {
          */
         let gatheredFish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
         for (let fish of this.getNew()) {
-            let rarity_scale = fish.rarity;
+            let rarityScale = fish.rarity;
             for (let location of fish.locations) {
-                gatheredFish[rarity_scale].push(fish);
-                if (rarity_scale < 10) { // max fish rarity
-                    rarity_scale++;
+                gatheredFish[rarityScale].push(fish);
+                if (rarityScale < 10) { // max fish rarity
+                    rarityScale++;
                 }
             }
         }
