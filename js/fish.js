@@ -287,11 +287,25 @@ export default class FishCalculator {
     }
 
     #getRarity(fish, loc) {
+        /**
+         * Finds rarity based off fish
+         * 
+         * @param {Array} fish to determine rarity of
+         * @param {String} loc to determine rarity index of
+         * @returns rarity
+         */
         const rarity = fish.rarity + fish.locations.indexOf(loc)
         return rarity < 10 ? rarity : 10;
     }
 
     #getRodRarity(fish, loc) {
+        /**
+         * Finds rod rarity based off fish.
+         * 
+         * @param {Array} fish to determine rod rarity of
+         * @param {String} loc to determine rarity of
+         * @returns rod rarity
+         */
         const rarity = this.#getRarity(fish, loc);
         return this.rodInfo.probability[rarity-1];
     }
@@ -307,10 +321,10 @@ export default class FishCalculator {
         let related;
         for (const loc of fish.locations) {
             const rarityFriends = this.sortByRarity()[this.#getRarity(fish,loc)];
-            // related.length is incremented to account for fish not being found
             if (loc == 'Anywhere') {
                 if (fish.locations[0] == loc) {
                     related = this.#getSmallestLocation(rarityFriends);
+                    // related.length is incremented to account for fish not being found
                     probabilities.push( {
                         name: fish.name,
                         probability: this.#getRodRarity(fish, loc) / (related.length+1),
@@ -320,6 +334,7 @@ export default class FishCalculator {
                     // anywhere is an extra location; add rarity to all previous locations
                     for (let entry of probabilities) {
                         related = this.#getByLocationRarity(entry.location, this.#getRarity(fish, loc), rarityFriends);
+                        // related.length is incremented to account for fish not being found
                         entry.probability += this.#getRodRarity(fish,loc) / (related.length+1);
                     }
                 }
