@@ -221,6 +221,9 @@ export default class FishCalculator {
 
     #getSmallestLocation(arr) {
         const locations = {}
+        let minLength = Infinity;
+        let minLocation = null;
+
         for (const fish of arr) {
             for (const loc of fish.locations) {
                 if (loc != 'Anywhere') {
@@ -228,16 +231,12 @@ export default class FishCalculator {
                         locations[loc] = [];
                     }
                     locations[loc].push(fish);
+                    // track smallest location
+                    if (locations[loc].length < minLength) {
+                        minLength = locations[loc].length;
+                        minLocation = loc;
+                    }
                 }
-            }
-        }
-
-        let minLength = Infinity;
-        let minLocation = null;
-        for (const loc in locations) {
-            if (locations[loc].length < minLength) {
-                minLength = locations[loc].length;
-                minLocation = loc;
             }
         }
         return locations[minLocation];
