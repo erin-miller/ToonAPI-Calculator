@@ -196,13 +196,13 @@ export default class FishCalculator {
 
         const fishMatch = (loc, rar, fish) => {
             const rarityIndex = this.#getRarity(fish, loc);
-            if (rarityIndex === rar && !gatheredFish.includes(fish)) {
+            if (rarityIndex === rar) {
                 gatheredFish.push(fish);
             }
         }
 
         for (let fish of filterFish) {
-            if (!(gatheredFish.includes(fish)) && fish.locations.includes(location)) {   
+            if (!gatheredFish.includes(fish) && fish.locations.includes(location)) {   
                 fishMatch(location, rarity, fish);
             } else if (fish.locations.includes('Anywhere')) {
                 // rarity index changes since Anywhere might be in a different index
@@ -210,7 +210,7 @@ export default class FishCalculator {
             }
             // fish can get added if they have a street and playground
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                if (streets.includes(location) && fish.locations.includes(playground) && !(gatheredFish.includes(fish))) {
+                if (streets.includes(location) && fish.locations.includes(playground) && !gatheredFish.includes(fish)) {
                     fishMatch(playground, rarity, fish);
                 }
             }
