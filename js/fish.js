@@ -221,7 +221,10 @@ export default class FishCalculator {
 
     #getSmallestLocation(filterFish) {
         /**
+         * Find the smallest location size based on filterFish
          * 
+         * @param {Array} filterFish to find smallest location of
+         * @returns {Array} containing the smallest location and its fish
          */
         const locations = {}
         let minLength = Infinity;
