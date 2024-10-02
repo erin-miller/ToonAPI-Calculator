@@ -23,8 +23,16 @@ export default class SuitsCalculator {
         @param {string} department - Value in [c,l,m,s]
         @returns The corresponding department's facility information and values
         */
-        const facility = this.suits_info.suitTypes.department.facility;
-        return this.suits_info.facilities.facility;
+        const facility = this.suits_info.suitTypes[department].facility;
+        return this.suits_info.facilities[facility];
+    }
+
+    getCurrent(department) {
+        return this.toon[department].promotion.current;
+    }
+
+    getTarget(department) {
+        return this.toon[department].promotion.target;
     }
 
     getBestPath(department) {
@@ -37,7 +45,7 @@ export default class SuitsCalculator {
             If toon does not have a disguise, it will return with a message.
         */
         const facilityInfo = this.#getFacilityData(department);
-        const toonInfo = this.toon.department;
+        const toonInfo = this.toon[department];
 
         if (toonInfo.hasDisguise) {
             let path = [];
