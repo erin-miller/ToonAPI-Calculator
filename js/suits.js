@@ -35,6 +35,10 @@ export default class SuitsCalculator {
         return this.toon[department].promotion.target;
     }
 
+    getNeeded(department) {
+        return this.getTarget(department) - this.getCurrent(department);
+    }
+
     getBestPath(department) {
         /**
         Returns the optimal facility path to get to promotion.
