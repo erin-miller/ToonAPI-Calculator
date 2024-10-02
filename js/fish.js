@@ -19,7 +19,7 @@ export default class FishCalculator {
         this.locationInfo = JSON.parse(fs.readFileSync(locationPath, 'utf8'));
 
         const toon = JSON.parse(data);
-        this.rodInfo = this.fishingInfo.rods[toon.rod['name']];
+        this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaught(toon);
         this.catchable = this.getCatchable();
     }
@@ -35,11 +35,11 @@ export default class FishCalculator {
         for (const fish of this.getNew()) {
             const fishData = this.#getRarityByLocation(fish);
             for (const pond of fishData) {
-                const loc = pond['location'];
+                const loc = pond.location;
                 if (!(loc in bestLocation)) {
                     bestLocation[loc] = 0;
                 }
-                bestLocation[loc] += pond['probability']; 
+                bestLocation[loc] += pond.probability; 
             }
         }
         return Object.entries(bestLocation).sort((a,b) => b[1] - a[1]);
@@ -97,7 +97,7 @@ export default class FishCalculator {
          */
         let gatheredFish = [];
         for (let fish of this.fishingInfo.fish) {
-            if (fish.weight_min <= this.rodInfo['weight-max']) {
+            if (fish.weight_min <= this.rodInfo.weight_max) {
                 gatheredFish.push(fish);
             }
         }
@@ -142,7 +142,7 @@ export default class FishCalculator {
         return gatheredFish;
     }
 
-    getByLocationRarity(location, rarity, arr) {
+    #getByLocationRarity(location, rarity, arr) {
         /**
          * Finds ALL UNCAUGHT, CATCHABLE fish at the desired location with specified rarity.
          *
@@ -154,7 +154,7 @@ export default class FishCalculator {
         let gatheredFish = [];
         for (let fish of arr) {
             let rarityIndex = fish.rarity + fish.locations.indexOf(location);
-            if (!gatheredFish.includes(fish)) {
+            if (!(gatheredFish.includes(fish))) {
                 // fish rarity caps at 10
                 if (rarityIndex > 10) { rarityIndex = 10; }
     
@@ -176,7 +176,7 @@ export default class FishCalculator {
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
                 if (streets.includes(location)) {
                     if (fish.locations.includes(playground)) {
-                        if (!gatheredFish.includes(fish)) {
+                        if (!(gatheredFish.includes(fish))) {
                             rarityIndex = fish.rarity + fish.locations.indexOf(playground)
                             if (rarityIndex > 10) { rarityIndex = 10; }
                             if (rarityIndex == rarity) {
@@ -189,6 +189,30 @@ export default class FishCalculator {
         }
 
         return gatheredFish;
+    }
+
+    #getSmallestLocation(arr) {
+        const locations = {}
+        for (const fish of arr) {
+            for (const loc of fish.locations) {
+                if (loc != 'Anywhere') {
+                    if (!locations[loc]) {
+                        locations[loc] = [];
+                    }
+                    locations[loc].push(fish);
+                }
+            }
+        }
+
+        let minLength = Infinity;
+        let minLocation = null;
+        for (const loc in locations) {
+            if (locations[loc].length < minLength) {
+                minLength = locations[loc].length;
+                minLocation = loc;
+            }
+        }
+        return locations[minLocation];
     }
 
     sortByLocation() {
@@ -261,6 +285,16 @@ export default class FishCalculator {
             { probability: 0, location: null }  
         );
     }
+
+    #getRarity(fish, loc) {
+        const rarity = fish.rarity + fish.locations.indexOf(loc)
+        return rarity < 10 ? rarity : 10;
+    }
+
+    #getRodRarity(fish, loc) {
+        const rarity = this.#getRarity(fish, loc);
+        return this.rodInfo.probability[rarity-1];
+    }
     
     #getRarityByLocation(fish) {
         /**
@@ -270,47 +304,42 @@ export default class FishCalculator {
          * @returns {Array} - elements of fish probabilities at each location
          */
         const probabilities = [];
-
-        const fishRarity = fish['rarity'];
-        const fishRarityPlus = fishRarity < 10 ? fishRarity+1 : fishRarity;
-        
-        const rodProbability = this.rodInfo['probability'][fishRarity-1]
-        const rodProbabilityPlus = this.rodInfo['probability'][fishRarityPlus-1];
-
-        for (const loc of fish['locations']) {
-            let relatedFish;
-            let rarityFriends;
-            let numFish;
-
-            if (loc == 'Anywhere' && probabilities.length > 0) {
-                // anywhere is an extra location; add rarity to all previous locations
-                rarityFriends = this.sortByRarity()[fishRarityPlus];
-                relatedFish = this.getByLocationRarity(loc, fishRarityPlus, rarityFriends);
-                numFish = relatedFish.length > 0 ? relatedFish.length : 1;
-                for (let entry of probabilities) {
-                    entry.probability += rodProbabilityPlus / numFish;
+        let related;
+        for (const loc of fish.locations) {
+            const rarityFriends = this.sortByRarity()[this.#getRarity(fish,loc)];
+            // related.length is incremented to account for fish not being found
+            if (loc == 'Anywhere') {
+                if (fish.locations[0] == loc) {
+                    related = this.#getSmallestLocation(rarityFriends);
+                    probabilities.push( {
+                        name: fish.name,
+                        probability: this.#getRodRarity(fish, loc) / (related.length+1),
+                        location: related[0].locations[0]
+                    });
+                } else {
+                    // anywhere is an extra location; add rarity to all previous locations
+                    for (let entry of probabilities) {
+                        related = this.#getByLocationRarity(entry.location, this.#getRarity(fish, loc), rarityFriends);
+                        entry.probability += this.#getRodRarity(fish,loc) / (related.length+1);
+                    }
                 }
 
             } else {
                 // add base rarity 
-                rarityFriends = this.sortByRarity()[fishRarity];
-                relatedFish = this.getByLocationRarity(loc, fishRarity, rarityFriends);
-                numFish = relatedFish.length > 0 ? relatedFish.length : 1;
+                related = this.#getByLocationRarity(loc, this.#getRarity(fish,loc), rarityFriends);
                 probabilities.push( { 
-                    name: fish['name'], 
-                    probability: rodProbability / numFish, 
+                    name: fish.name, 
+                    probability: this.#getRodRarity(fish,loc) / related.length, 
                     location: loc 
                 })
-                
+
                 // add twice if fish occurs twice in one pond
                 for (let [playground, streets] of Object.entries(this.locationInfo)) {
                     if (streets.includes(loc) && fish.locations.includes(playground)) {
-                            rarityFriends = this.sortByRarity()[fishRarityPlus];
-                            relatedFish = this.getByLocationRarity(loc, fishRarityPlus, rarityFriends);
-                            numFish = relatedFish.length > 0 ? relatedFish.length : 1;
-
+                            const pgFriends = this.sortByRarity()[this.#getRarity(fish,playground)];
+                            related = this.#getByLocationRarity(playground, this.#getRarity(fish,playground), pgFriends);
                             const prev = probabilities.find(entry => entry.location === loc);
-                            prev.probability += rodProbabilityPlus / numFish;
+                            prev.probability += this.#getRodRarity(fish,playground) / related.length;
                     }
                 }
             }

@@ -2,7 +2,7 @@
     "rods": {
         "Twig": {
             "rrf": 3.6,
-            "weight-max": 4,
+            "weight_max": 4,
             "probability": [
                 0.3157,
                 0.2365,
@@ -18,7 +18,7 @@
         },
         "Bamboo": {
             "rrf": 3.51,
-            "weight-max": 8,
+            "weight_max": 8,
             "probability": [
                 0.3091,
                 0.2339,
@@ -34,7 +34,7 @@
         },
         "Hardwood": {
             "rrf": 3.42,
-            "weight-max": 12,
+            "weight_max": 12,
             "probability": [
                 0.3029,
                 0.2312,
@@ -50,7 +50,7 @@
         },
         "Steel": {
             "rrf": 3.24,
-            "weight-max": 16,
+            "weight_max": 16,
             "probability": [
                 0.2892,
                 0.2255,
@@ -66,7 +66,7 @@
         },
         "Gold": {
             "rrf": 3.06,
-            "weight-max": 20,
+            "weight_max": 20,
             "probability": [
                 0.2756,
                 0.2192,
