@@ -219,12 +219,15 @@ export default class FishCalculator {
         return gatheredFish;
     }
 
-    #getSmallestLocation(arr) {
+    #getSmallestLocation(filterFish) {
+        /**
+         * 
+         */
         const locations = {}
         let minLength = Infinity;
         let minLocation = null;
 
-        for (const fish of arr) {
+        for (const fish of filterFish) {
             for (const loc of fish.locations) {
                 if (loc != 'Anywhere') {
                     if (!locations[loc]) {
