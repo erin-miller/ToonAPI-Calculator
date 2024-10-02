@@ -4,10 +4,10 @@ import { fileURLToPath } from 'url';
 export default class RacingCalculator {
     constructor(data) {
         /**
-        Initializes the racing calculator.
-
-        @param {string} data: JSON containing the toon's race progress.
-        */
+         * Initializes the racing calculator.
+         *
+         *@param {string} data: JSON containing the toon's race progress.
+         */
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
         const jsonPath = path.join(__dirname, '../data/race_trophies.json');
@@ -19,15 +19,15 @@ export default class RacingCalculator {
 
     getBestTrophy() {
         /**
-        Finds the easiest trophies to complete (closest to next requirement)
-
-        @returns {Object[]} - JSON containing list of all uncompleted trophies. Index 0 has the easiest trophy.
-            Each trophy has the following format:
-                name: The trophy's name (generalized)
-                progress.current: The current progress
-                progress.required: The next required trophy value.
-                progress.difference: The difference to the requirement.
-        */
+         * Finds the easiest trophies to complete (closest to next requirement)
+         * 
+         * @returns {Object[]} - JSON containing list of all uncompleted trophies. Index 0 has the easiest trophy.
+         *   Each trophy has the following format:
+         *       name: The trophy's name (generalized)
+         *       progress.current: The current progress
+         *       progress.required: The next required trophy value.
+         *       progress.difference: The difference to the requirement.
+         */
         const trophies = [];
         for (const trophy of this.race_info) {
             const count = this.toon[trophy.description];

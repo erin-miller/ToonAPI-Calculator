@@ -8,21 +8,29 @@
     "facilities": {
         "cgc": [
             { "name": "Final Fringe", "value": 2180 },
-            { "name": "First Fairway", "value": 900 }
+            { "name": "First Fairway", "value": 900 },
+            { "name": "5 story Building", "value": 300},
+            { "name": "4 story Building", "value": 125}
         ],
         "wing": [
             { "name": "Senior", "value": 1900 },
-            { "name": "Junior", "value": 808 }
+            { "name": "Junior", "value": 808 },
+            { "name": "5 story Building", "value": 300},
+            { "name": "4 story Building", "value": 125}
         ],
         "mint": [
             { "name": "Bullion", "value": 1600 },
-            { "name": "Coin", "value": 735 }
+            { "name": "Coin", "value": 735 },
+            { "name": "5 story Building", "value": 300},
+            { "name": "4 story Building", "value": 125}
         ],
         "factory": [
           { "name": "long Steel", "value": 1525 },
           { "name": "short Steel", "value": 900 },
           { "name": "long Scrap", "value": 609 },
-          { "name": "short Scrap", "value": 400 }
+          { "name": "short Scrap", "value": 400 },
+          { "name": "5 story Building", "value": 300},
+          { "name": "4 story Building", "value": 125}
         ]
     }
   }

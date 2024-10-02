@@ -42,5 +42,5 @@ yarn-error.log*
 # Others
 /py/
 /js/flowers.js
-/js/tests.js
+test.js
 fish_results.txt
