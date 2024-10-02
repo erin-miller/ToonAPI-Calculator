@@ -33,7 +33,7 @@ export default class FishCalculator {
         let bestLocation = {};
         // populate probabilities with fish in all locations
         for (const fish of this.getNew()) {
-            const fishData = this.#getRarityByLocation(fish);
+            const fishData = this.#getLocationProbabilities(fish);
             for (const pond of fishData) {
                 const loc = pond.location;
                 if (!(loc in bestLocation)) {
@@ -53,25 +53,9 @@ export default class FishCalculator {
          */
         let probabilities = [];
         for (const fish of this.getNew()) {
-            probabilities.push(this.#getBestLocation(fish))
+            probabilities.push(this.#getHighestProbability(fish))
         }
         return probabilities.sort((a,b) => b.probability - a.probability);
-    }
-
-    getBuckets(fish) {
-        /**
-         * Estimates number of buckets you need to fill to be 90% sure you catch the desired fish
-         * 
-         * @param {Object[]} fish - desired fish
-         * @returns estimated number of buckets
-         */
-        const confidence = 1 - 0.90;
-        const bucketCapacity = 20;
-        const catchProb = fish.probability;
-        const missProb = 1 - catchProb;
-
-        let attempts = Math.log(confidence) / Math.log(missProb);
-        return Math.ceil(attempts / bucketCapacity);
     }
 
     getUncaught() {
@@ -91,7 +75,7 @@ export default class FishCalculator {
 
     getCatchable() {
         /**
-         * Finds all fish that can be caught by the desired rod.
+         * Finds all fish that can be caught.
          *
          * @returns {Array} gatheredFish - The fish that can be caught by rod.
          */
@@ -171,69 +155,77 @@ export default class FishCalculator {
          */
         let gatheredFish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
         for (let fish of this.getNew()) {
-            let rarity_scale = fish.rarity;
+            let rarityScale = fish.rarity;
             for (let location of fish.locations) {
-                gatheredFish[rarity_scale].push(fish);
-                if (rarity_scale < 10) { // max fish rarity
-                    rarity_scale++;
+                gatheredFish[rarityScale].push(fish);
+                if (rarityScale < 10) { // max fish rarity
+                    rarityScale++;
                 }
             }
         }
         return gatheredFish;
     }
 
-    #getByLocationRarity(location, rarity, arr) {
+    #getBuckets(fish) {
+        /**
+         * Estimates number of buckets you need to fill to be 90% sure you catch the desired fish
+         * 
+         * @param {Object[]} fish - desired fish
+         * @returns estimated number of buckets
+         */
+        const confidence = 1 - 0.90;
+        const bucketCapacity = 20;
+        const catchProb = fish.probability;
+        const missProb = 1 - catchProb;
+
+        const attempts = Math.log(confidence) / Math.log(missProb);
+        return Math.ceil(attempts / bucketCapacity);
+    }
+
+    #getByLocationRarity(location, rarity, filterFish) {
         /**
          * Finds ALL UNCAUGHT, CATCHABLE fish at the desired location with specified rarity.
          *
          * @param {string} location - The location to get fish from.
          * @param {int} rarity - The desired rarity.
-         * @param {Array} arr - Array to find fish with desired location and rarity
+         * @param {Array} filterFish - Array to find fish with desired location and rarity
          * @returns {Array} gatheredFish - The fish at location with rarity
          */
         let gatheredFish = [];
-        for (let fish of arr) {
-            let rarityIndex = fish.rarity + fish.locations.indexOf(location);
-            if (!(gatheredFish.includes(fish))) {
-                // fish rarity caps at 10
-                if (rarityIndex > 10) { rarityIndex = 10; }
-    
-                if (fish.locations.includes(location)) {
-                    if (rarityIndex == rarity) {
-                        gatheredFish.push(fish);
-                    }
-                } else if (fish.locations.includes('Anywhere')) {
-                    // rarity index changes since Anywhere might be in a different index
-                    rarityIndex = fish.rarity + fish.locations.indexOf('Anywhere')
-                    if (rarityIndex > 10) { rarityIndex = 10; }
-                    if (rarityIndex == rarity) {
-                        gatheredFish.push(fish);
-                    }
-                }
-            }
-            
-            // fish can get added if they have a street and playground
-            for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                if (streets.includes(location)) {
-                    if (fish.locations.includes(playground)) {
-                        if (!(gatheredFish.includes(fish))) {
-                            rarityIndex = fish.rarity + fish.locations.indexOf(playground)
-                            if (rarityIndex > 10) { rarityIndex = 10; }
-                            if (rarityIndex == rarity) {
-                                gatheredFish.push(fish);
-                            }
-                        }
-                    }
-                }
+
+        const fishMatch = (loc, rar, fish) => {
+            const rarityIndex = this.#getRarity(fish, loc);
+            if (rarityIndex === rar) {
+                gatheredFish.push(fish);
             }
         }
 
+        for (let fish of filterFish) {
+            if (!gatheredFish.includes(fish) && fish.locations.includes(location)) {   
+                fishMatch(location, rarity, fish);
+            } else if (fish.locations.includes('Anywhere')) {
+                // rarity index changes since Anywhere might be in a different index
+                fishMatch('Anywhere', rarity, fish);
+            }
+            // fish can get added if they have a street and playground
+            for (let [playground, streets] of Object.entries(this.locationInfo)) {
+                if (streets.includes(location) && fish.locations.includes(playground) && !gatheredFish.includes(fish)) {
+                    fishMatch(playground, rarity, fish);
+                }
+            }
+        }
         return gatheredFish;
     }
 
-    #getSmallestLocation(arr) {
+    #getSmallestLocation(filterFish) {
+        /**
+         * Find the smallest location size based on filterFish
+         * 
+         * @param {Array} filterFish to find smallest location of
+         * @returns {Array} containing the smallest location and its fish
+         */
         const locations = {}
-        for (const fish of arr) {
+        for (const fish of filterFish) {
             for (const loc of fish.locations) {
                 if (loc != 'Anywhere') {
                     if (!locations[loc]) {
@@ -273,14 +265,14 @@ export default class FishCalculator {
         return fish;
     }
 
-    #getBestLocation(fish) {
+    #getHighestProbability(fish) {
         /**
          * Chooses highest probability fish location.
          * 
          * @param {Array} fish - to determine probabilities of
          * @returns {Array} - element of best fish location
          */
-        return this.#getRarityByLocation(fish).reduce((best, curr) => 
+        return this.#getLocationProbabilities(fish).reduce((best, curr) => 
             curr.probability > best.probability ? curr : best,
             { probability: 0, location: null }  
         );
@@ -310,7 +302,7 @@ export default class FishCalculator {
         return this.rodInfo.probability[rarity-1];
     }
     
-    #getRarityByLocation(fish) {
+    #getLocationProbabilities(fish) {
         /**
          * Finds all of fish's probabilities at all their locations.
          * 
@@ -361,7 +353,7 @@ export default class FishCalculator {
         }
 
         for (const fish of probabilities) {
-            fish.buckets = this.getBuckets(fish);
+            fish.buckets = this.#getBuckets(fish);
         }
         return probabilities;
     }
