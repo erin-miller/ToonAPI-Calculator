@@ -21,11 +21,10 @@ export default class SuitsCalculator {
         Grabs facility data based off of department.
 
         @param {string} department - Value in [c,l,m,s]
-
-        Returns: The corresponding department's facility information and values
+        @returns The corresponding department's facility information and values
         */
-        const facility = this.suits_info.suitTypes[department].facility;
-        return this.suits_info.facilities[facility];
+        const facility = this.suits_info.suitTypes.department.facility;
+        return this.suits_info.facilities.facility;
     }
 
     getBestPath(department) {
@@ -33,13 +32,12 @@ export default class SuitsCalculator {
         Returns the optimal facility path to get to promotion.
 
         @param {string} department - Value in [c,l,m,s]
-
         @returns {Object[]} - JSON with optimal path and total value
             If toon is maxed or has promotion, it will return with a message.
             If toon does not have a disguise, it will return with a message.
         */
         const facilityInfo = this.#getFacilityData(department);
-        const toonInfo = this.toon[department];
+        const toonInfo = this.toon.department;
 
         if (toonInfo.hasDisguise) {
             let path = [];
