@@ -16,17 +16,6 @@ export default class SuitsCalculator {
         this.toon = JSON.parse(data);
     }
 
-    #getFacilityData(department) {
-        /**
-         * Grabs facility data based off of department.
-         *
-         * @param {string} department - Value in [c,l,m,s]
-         * @returns The corresponding department's facility information and values
-         */
-        const facility = this.suits_info.suitTypes[department].facility;
-        return this.suits_info.facilities[facility];
-    }
-
     getCurrent(department) {
         /**
          * @param {string} department - Value in [c,l,m,s]
@@ -181,6 +170,17 @@ export default class SuitsCalculator {
                 message: "Toon does not have a disguise."
             };
         }
+    }
+
+    #getFacilityData(department) {
+        /**
+         * Grabs facility data based off of department.
+         *
+         * @param {string} department - Value in [c,l,m,s]
+         * @returns The corresponding department's facility information and values
+         */
+        const facility = this.suits_info.suitTypes[department].facility;
+        return this.suits_info.facilities[facility];
     }
 }
     
