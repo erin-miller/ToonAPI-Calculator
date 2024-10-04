@@ -113,5 +113,12 @@ export default class SuitsCalculator {
             };
         }
     }
+    
+    getBestPathWeighted(department) {
+        const facilityInfo = this.#getFacilityData(department);
+        const toonInfo = this.toon[department];
+        
+    }
 }
+    
 

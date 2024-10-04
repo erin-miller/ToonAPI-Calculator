@@ -7,30 +7,30 @@
       },
     "facilities": {
         "cgc": [
-            { "name": "Final Fringe", "value": 2180 },
-            { "name": "First Fairway", "value": 900 },
-            { "name": "5 story Building", "value": 300},
-            { "name": "4 story Building", "value": 125}
+            { "name": "Final Fringe", "value": 2180, "weight": 24},
+            { "name": "First Fairway", "value": 900, "weight": 16 },
+            { "name": "5 story Building", "value": 299, "weight": 11},
+            { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "wing": [
-            { "name": "Senior", "value": 1900 },
-            { "name": "Junior", "value": 808 },
-            { "name": "5 story Building", "value": 300},
-            { "name": "4 story Building", "value": 125}
+            { "name": "Senior", "value": 1900, "weight": 21 },
+            { "name": "Junior", "value": 808, "weight": 15 },
+            { "name": "5 story Building", "value": 299, "weight": 11},
+            { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "mint": [
-            { "name": "Bullion", "value": 1600 },
-            { "name": "Coin", "value": 735 },
-            { "name": "5 story Building", "value": 300},
-            { "name": "4 story Building", "value": 125}
+            { "name": "Bullion", "value": 1600, "weight": 20 },
+            { "name": "Coin", "value": 735, "weight": 14 },
+            { "name": "5 story Building", "value": 299, "weight": 11},
+            { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "factory": [
-          { "name": "long Steel", "value": 1525 },
-          { "name": "short Steel", "value": 900 },
-          { "name": "long Scrap", "value": 609 },
-          { "name": "short Scrap", "value": 400 },
-          { "name": "5 story Building", "value": 300},
-          { "name": "4 story Building", "value": 125}
+          { "name": "long Steel", "value": 1525, "weight": 20 },
+          { "name": "short Steel", "value": 900, "weight": 12 },
+          { "name": "long Scrap", "value": 609, "weight": 15 },
+          { "name": "short Scrap", "value": 400, "weight": 8 },
+          { "name": "5 story Building", "value": 299, "weight": 11},
+          { "name": "4 story Building", "value": 150, "weight": 8}
         ]
     }
   }
