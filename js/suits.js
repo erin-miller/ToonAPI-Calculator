@@ -79,7 +79,11 @@ export default class SuitsCalculator {
                 };
             }
 
-            for (const facility of facilityInfo) {
+            const weighted = facilityInfo.sort((a,b) => {
+                return (b.value / b.weight) - (a.value / a.weight);
+            })
+
+            for (const facility of weighted) {
                 const count = Math.floor((remaining - total) / facility.value);
                 
                 if (count > 0) {
@@ -95,7 +99,7 @@ export default class SuitsCalculator {
             
             // ensure remaining is overfilled
             if (total < remaining) {
-                const overflow = facilityInfo[facilityInfo.length - 1];
+                const overflow = weighted[weighted.length - 1];
                 path.push(overflow.name);
                 total += overflow.value;
             }
@@ -112,12 +116,6 @@ export default class SuitsCalculator {
                 message: "Toon does not have a disguise."
             };
         }
-    }
-    
-    getBestPathWeighted(department) {
-        const facilityInfo = this.#getFacilityData(department);
-        const toonInfo = this.toon[department];
-        
     }
 }
     
