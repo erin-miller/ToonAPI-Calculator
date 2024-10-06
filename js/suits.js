@@ -72,8 +72,6 @@ export default class SuitsCalculator {
                 return (b.value / b.weight) - (a.value / a.weight);
             })
 
-            console.log(weighted);
-
             for (const facility of weighted) {
                 const count = Math.floor((remaining - total) / facility.value);
                 
