@@ -20,7 +20,7 @@ export default class FishCalculator {
 
         const toon = JSON.parse(data);
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
-        this.caught = this.#getCaught(toon);
+        this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
     }
 
@@ -30,19 +30,24 @@ export default class FishCalculator {
          * 
          * @returns {Object[]} - sorted locations with chance to catch a new fish, descending
          */
-        let bestLocation = {};
-        // populate probabilities with fish in all locations
-        for (const fish of this.getNew()) {
-            const fishData = this.#getLocationProbabilities(fish);
-            for (const pond of fishData) {
-                const loc = pond.location;
-                if (!(loc in bestLocation)) {
-                    bestLocation[loc] = 0;
-                }
-                bestLocation[loc] += pond.probability; 
+    
+        const locations = this.#getLocationRanks();
+        const bestLocation = {};
+        let buckets;
+
+        for (const [location, rarities] of Object.entries(locations)) {
+            const total = Math.min(Object.values(rarities).reduce((sum,value) => sum+value, 0), 1);
+
+            if (total <= 0 || total >= 1) {
+                buckets = 1;
+            } else {
+                buckets = this.#getBucketsByLocation(total);
             }
+
+            bestLocation[location] = { total, buckets };
         }
-        return Object.entries(bestLocation).sort((a,b) => b[1] - a[1]);
+
+        return Object.entries(bestLocation).sort((a,b) => b[1].total - a[1].total);
     }
 
     sortBestRarity() {
@@ -88,6 +93,15 @@ export default class FishCalculator {
         return gatheredFish;
     }
 
+    getCaught() {
+        /**
+         * Returns the fish that the toon has caught.
+         * 
+         * @returns {Array} caught
+         */
+        return this.caught;
+    }
+
     getNew() {
         /**
          * Finds uncaught, catchable fish.
@@ -99,7 +113,7 @@ export default class FishCalculator {
 
     getByLocation(location) {
         /**
-         * Finds ALL UNCAUGHT, CATCHABLE fish at the desired location.
+         * Finds ALL catchable fish at the desired location.
          * If a fish has 'Anywhere' and location, they are added twice.
          * If location is a street and a fish has the corresponding playground, they are added again.
          *
@@ -107,7 +121,7 @@ export default class FishCalculator {
          * @returns {Array} gatheredFish - The fish at location.
          */
         let gatheredFish = [];
-        for (let fish of this.getNew()) {
+        for (let fish of this.getCatchable()) {
             if (fish.locations.includes(location)) {
                 gatheredFish.push(fish);
             }
@@ -116,8 +130,9 @@ export default class FishCalculator {
             }
 
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                if (streets.includes(location)) {
-                    if (fish.locations.includes(playground)) {
+                if (playground === location) { // location is a playground
+                    if (streets.some(street => fish.locations.includes(street))) {
+                        // add if fish is located in pg street
                         gatheredFish.push(fish);
                     }
                 }
@@ -166,6 +181,22 @@ export default class FishCalculator {
         return gatheredFish;
     }
 
+    #getBucketsByLocation(total) {
+        /**
+         * Estimates number of buckets you need to fill to be 90% sure you catch a new fish
+         * at this location
+         * 
+         * @param {int} total probability of location
+         * @returns estimated number of buckets
+         */
+        const confidence = 1 - 0.90;
+        const bucketCapacity = 20;
+        const missProb = 1 - total;
+
+        const attempts = Math.log(confidence) / Math.log(missProb);
+        return Math.ceil(attempts / bucketCapacity);
+    }
+
     #getBuckets(fish) {
         /**
          * Estimates number of buckets you need to fill to be 90% sure you catch the desired fish
@@ -184,7 +215,7 @@ export default class FishCalculator {
 
     #getByLocationRarity(location, rarity, filterFish) {
         /**
-         * Finds ALL UNCAUGHT, CATCHABLE fish at the desired location with specified rarity.
+         * Finds ALL filterFish at the desired location with specified rarity.
          *
          * @param {string} location - The location to get fish from.
          * @param {int} rarity - The desired rarity.
@@ -209,12 +240,50 @@ export default class FishCalculator {
             }
             // fish can get added if they have a street and playground
             for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                if (streets.includes(location) && fish.locations.includes(playground) && !gatheredFish.includes(fish)) {
+                if (playground === location && streets.some(street => fish.locations.includes(street)) && !gatheredFish.includes(fish)) {
                     fishMatch(playground, rarity, fish);
                 }
             }
         }
         return gatheredFish;
+    }
+
+    #getLocationRanks() {
+        /**
+         * Calculates the chance of catching a new fish in each rarity for each location
+         * 
+         * @returns all locations with new fish probability in each rarity
+         */
+        let locations = {};
+
+        for (const pg in this.locationInfo) {
+            locations[pg] = {};
+            this.#getRarityByLocation(pg, locations[pg]);
+        
+            for (const street of this.locationInfo[pg]) {
+                locations[street] = {};
+                this.#getRarityByLocation(street, locations[street]);
+            }
+        }
+        return locations;
+    }
+
+    #getRarityByLocation(location, data) {
+        const locFish = this.getByLocation(location);
+
+        for (let rarity = 1; rarity <= 10; rarity++) {
+            const rarityFish = this.#getByLocationRarity(location, rarity, locFish);
+            const rodRarity = this.rodInfo.probability[rarity - 1];
+
+            if (rarityFish.length > 0) {
+                const totalFish = rarityFish.length;
+                const newFish = rarityFish.filter(fish => !this.caught.includes(fish.name)).length;
+
+                data[rarity] = rodRarity * (newFish / totalFish);
+            } else {
+                data[rarity] = rodRarity;
+            }
+        }
     }
 
     #getSmallestLocation(filterFish) {
@@ -247,7 +316,7 @@ export default class FishCalculator {
         return locations[minLocation];
     }
 
-    #getCaught(toon) {
+    #getCaughtBy(toon) {
         /**
          * Finds and organizes all fish the toon has caught.
          * 
@@ -342,7 +411,7 @@ export default class FishCalculator {
 
                 // add twice if fish occurs twice in one pond
                 for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                    if (streets.includes(loc) && fish.locations.includes(playground)) {
+                    if (playground === loc && streets.some(street => fish.locations.includes(street))) {
                             const pgFriends = this.sortByRarity()[this.#getRarity(fish,playground)];
                             related = this.#getByLocationRarity(playground, this.#getRarity(fish,playground), pgFriends);
                             const prev = probabilities.find(entry => entry.location === loc);
