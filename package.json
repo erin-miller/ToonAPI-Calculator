@@ -12,7 +12,7 @@
     "url": "git+https://github.com/erin-miller/ToonAPI-Calculator.git"
   },
   "author": "Erin Miller",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/erin-miller/ToonAPI-Calculator/issues"
   },
