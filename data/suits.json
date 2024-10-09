@@ -13,22 +13,22 @@
             { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "wing": [
-            { "name": "Senior", "value": 1925, "weight": 21 },
-            { "name": "Junior", "value": 808, "weight": 15 },
+            { "name": "Senior Wing", "value": 1925, "weight": 21 },
+            { "name": "Junior Wing", "value": 808, "weight": 15 },
             { "name": "5 story Building", "value": 299, "weight": 11},
             { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "mint": [
-            { "name": "Bullion", "value": 1650, "weight": 20 },
-            { "name": "Coin", "value": 735, "weight": 14 },
+            { "name": "Bullion Mint", "value": 1650, "weight": 20 },
+            { "name": "Coin Mint", "value": 735, "weight": 14 },
             { "name": "5 story Building", "value": 299, "weight": 11},
             { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "factory": [
-          { "name": "long Steel", "value": 1540, "weight": 21 },
-          { "name": "short Steel", "value": 900, "weight": 12 },
-          { "name": "long Scrap", "value": 620, "weight": 15 },
-          { "name": "short Scrap", "value": 400, "weight": 8 },
+          { "name": "long Steel Factory", "value": 1540, "weight": 21 },
+          { "name": "short Steel Factory", "value": 900, "weight": 12 },
+          { "name": "long Scrap Factory", "value": 620, "weight": 15 },
+          { "name": "short Scrap Factory", "value": 400, "weight": 8 },
           { "name": "5 story Building", "value": 299, "weight": 11},
           { "name": "4 story Building", "value": 150, "weight": 8}
         ]
