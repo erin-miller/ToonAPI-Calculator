@@ -20,7 +20,7 @@ export default class FishCalculator {
 
         const toon = JSON.parse(data);
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
-        this.caught = this.#getCaught(toon);
+        this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
     }
 
@@ -86,6 +86,15 @@ export default class FishCalculator {
             }
         }
         return gatheredFish;
+    }
+
+    getCaught() {
+        /**
+         * Returns the fish that the toon has caught.
+         * 
+         * @returns {Array} caught
+         */
+        return this.caught;
     }
 
     getNew() {
@@ -247,7 +256,7 @@ export default class FishCalculator {
         return locations[minLocation];
     }
 
-    #getCaught(toon) {
+    #getCaughtBy(toon) {
         /**
          * Finds and organizes all fish the toon has caught.
          * 
