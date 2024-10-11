@@ -37,20 +37,17 @@ export default class FishCalculator {
 
         for (const [location, rarities] of Object.entries(locations)) {
             const total = Math.min(Object.values(rarities).reduce((sum,value) => sum+value, 0), 1);
-
-            if (total <= 0 || total >= 1) {
-                buckets = 1;
-            } else {
-                buckets = this.#getBucketsByLocation(total);
-            }
+            buckets = this.#getBucketsByLocation(total);
             
-            bestLocation[location] = { total, buckets };
+            if (buckets !== 0) {
+                bestLocation[location] = { total, buckets };
+            }
         }
         
         // delete streets with same percentage as playground
         for (const pg in this.locationInfo) {
             this.locationInfo[pg].forEach(street => {
-                if (bestLocation[street].total === bestLocation[pg].total) {
+                if (bestLocation[street]?.total === bestLocation[pg]?.total) {
                     delete bestLocation[street];
                 }
             });
@@ -198,6 +195,11 @@ export default class FishCalculator {
          * @param {int} total probability of location
          * @returns estimated number of buckets
          */
+        if (total >= 1) {
+            return 1;
+        } else if (total <= 0) {
+            return 0;
+        }
         const confidence = 1 - 0.90;
         const bucketCapacity = 20;
         const missProb = 1 - total;
@@ -266,33 +268,31 @@ export default class FishCalculator {
         let locations = {};
 
         for (const pg in this.locationInfo) {
-            locations[pg] = {};
-            this.#getRarityByLocation(pg, locations[pg]);
-        
+            locations[pg] = this.#getRarityByLocation(pg);
             for (const street of this.locationInfo[pg]) {
-                locations[street] = {};
-                this.#getRarityByLocation(street, locations[street]);
+                locations[street] = this.#getRarityByLocation(street);
             }
         }
         return locations;
     }
 
-    #getRarityByLocation(location, data) {
+    #getRarityByLocation(location) {
         const locFish = this.getByLocation(location);
+        const data = {};
 
         for (let rarity = 1; rarity <= 10; rarity++) {
             const rarityFish = this.#getByLocationRarity(location, rarity, locFish);
             const rodRarity = this.rodInfo.probability[rarity - 1];
-
             if (rarityFish.length > 0) {
                 const totalFish = rarityFish.length;
                 const newFish = rarityFish.filter(fish => !this.caught.includes(fish.name)).length;
-
+                
                 data[rarity] = rodRarity * (newFish / totalFish);
             } else {
-                data[rarity] = rodRarity;
+                data[rarity] = 0;
             }
         }
+        return data;
     }
 
     #getSmallestLocation(filterFish) {
