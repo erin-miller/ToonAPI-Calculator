@@ -258,17 +258,17 @@ export default class FishCalculator {
 
         for (const pg in this.locationInfo) {
             locations[pg] = {};
-            this.#getProbabilityByLocation(pg, locations[pg]);
+            this.#getRarityByLocation(pg, locations[pg]);
         
             for (const street of this.locationInfo[pg]) {
                 locations[street] = {};
-                this.#getProbabilityByLocation(street, locations[street]);
+                this.#getRarityByLocation(street, locations[street]);
             }
         }
         return locations;
     }
 
-    #getProbabilityByLocation(location, data) {
+    #getRarityByLocation(location, data) {
         const locFish = this.getByLocation(location);
 
         for (let rarity = 1; rarity <= 10; rarity++) {
