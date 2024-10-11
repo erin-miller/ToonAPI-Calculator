@@ -43,8 +43,17 @@ export default class FishCalculator {
             } else {
                 buckets = this.#getBucketsByLocation(total);
             }
-
+            
             bestLocation[location] = { total, buckets };
+        }
+        
+        // delete streets with same percentage as playground
+        for (const pg in this.locationInfo) {
+            this.locationInfo[pg].forEach(street => {
+                if (bestLocation[street].total === bestLocation[pg].total) {
+                    delete bestLocation[street];
+                }
+            });
         }
 
         return Object.entries(bestLocation).sort((a,b) => b[1].total - a[1].total);
