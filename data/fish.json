@@ -220,6 +220,7 @@
             "weight_min": 1,
             "weight_max": 5,
             "rarity": 10,
+            "bonus": "Donald's Dock",
             "locations": ["Toontown Central", "Donald's Dock", "Estate"]
         },
         {
@@ -332,6 +333,7 @@
             "weight_min": 14,
             "weight_max": 18,
             "rarity": 10,
+            "bonus": "Donald's Dreamland",
             "locations": ["Donald's Dreamland"]
         },
         {
@@ -472,6 +474,7 @@
             "weight_min": 16,
             "weight_max": 20,
             "rarity": 10,
+            "bonus":"Walrus Way",
             "locations": ["The Brrrgh", "Walrus Way"]
         },
         {
@@ -507,6 +510,7 @@
             "weight_min": 16,
             "weight_max": 20,
             "rarity": 10,
+            "bonus": "Alto Avenue",
             "locations": ["Minnie's Melodyland", "Alto Avenue"]
         },
         {
@@ -563,6 +567,7 @@
             "weight_min": 1,
             "weight_max": 5,
             "rarity": 10,
+            "bonus": "The Brrrgh",
             "locations": ["The Brrrgh", "Donald's Dreamland"]
         },
         {

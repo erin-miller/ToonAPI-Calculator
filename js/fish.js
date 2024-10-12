@@ -22,6 +22,7 @@ export default class FishCalculator {
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
+        this.bonus = 1.1;
     }
 
     sortBestLocation() {
@@ -44,15 +45,6 @@ export default class FishCalculator {
             }
         }
         
-        // delete streets with same percentage as playground
-        for (const pg in this.locationInfo) {
-            this.locationInfo[pg].forEach(street => {
-                if (bestLocation[street]?.total === bestLocation[pg]?.total) {
-                    delete bestLocation[street];
-                }
-            });
-        }
-
         return Object.entries(bestLocation).sort((a,b) => b[1].total - a[1].total);
     }
 
@@ -134,15 +126,6 @@ export default class FishCalculator {
             if (fish.locations.includes('Anywhere')) {
                 gatheredFish.push(fish);
             }
-
-            for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                if (playground === location) { // location is a playground
-                    if (streets.some(street => fish.locations.includes(street))) {
-                        // add if fish is located in pg street
-                        gatheredFish.push(fish);
-                    }
-                }
-            }
         }
         return gatheredFish;
     }
@@ -169,13 +152,13 @@ export default class FishCalculator {
 
     sortByRarity() {
         /**
-         * Sorts ALL UNCAUGHT, CATCHABLE fish into a dictionary based on their rarity. Fish may 
+         * Sorts ALL CATCHABLE fish into a dictionary based on their rarity. Fish may 
          * be listed twice if they are available in various locations.
          *
          * @returns {Object} gatheredFish - Catchable, uncaught fish sorted by rarity. 
          */
         let gatheredFish = Object.fromEntries(Array.from({length: 10}, (_, i) => [i + 1, []]));
-        for (let fish of this.getNew()) {
+        for (let fish of this.catchable) {
             let rarityScale = fish.rarity;
             for (let location of fish.locations) {
                 gatheredFish[rarityScale].push(fish);
@@ -246,14 +229,7 @@ export default class FishCalculator {
             if (!gatheredFish.includes(fish) && fish.locations.includes(location)) {   
                 fishMatch(location, rarity, fish);
             } else if (fish.locations.includes('Anywhere')) {
-                // rarity index changes since Anywhere might be in a different index
                 fishMatch('Anywhere', rarity, fish);
-            }
-            // fish can get added if they have a street and playground
-            for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                if (playground === location && streets.some(street => fish.locations.includes(street)) && !gatheredFish.includes(fish)) {
-                    fishMatch(playground, rarity, fish);
-                }
             }
         }
         return gatheredFish;
@@ -293,6 +269,20 @@ export default class FishCalculator {
             }
         }
         return data;
+    }
+
+    #checkBonus(fish, loc) {
+        /**
+         * Applies probability bonus if applicable.
+         * @param fish to check
+         * @param loc to check
+         * @returns probability multiplier
+         */
+        if (fish.bonus && fish.bonus === loc) {
+            return this.bonus;
+        } else {
+            return 1;
+        }
     }
 
     #getSmallestLocation(filterFish) {
@@ -391,6 +381,7 @@ export default class FishCalculator {
         let related;
         for (const loc of fish.locations) {
             const rarityFriends = this.sortByRarity()[this.#getRarity(fish,loc)];
+
             if (loc == 'Anywhere') {
                 if (fish.locations[0] == loc) {
                     related = this.#getSmallestLocation(rarityFriends);
@@ -412,27 +403,20 @@ export default class FishCalculator {
             } else {
                 // add base rarity 
                 related = this.#getByLocationRarity(loc, this.#getRarity(fish,loc), rarityFriends);
+                const prob = this.#getRodRarity(fish, loc) * this.#checkBonus(fish, loc)
+
                 probabilities.push( { 
                     name: fish.name, 
-                    probability: this.#getRodRarity(fish,loc) / related.length, 
+                    probability: prob / related.length, 
                     location: loc 
                 })
-
-                // add twice if fish occurs twice in one pond
-                for (let [playground, streets] of Object.entries(this.locationInfo)) {
-                    if (playground === loc && streets.some(street => fish.locations.includes(street))) {
-                            const pgFriends = this.sortByRarity()[this.#getRarity(fish,playground)];
-                            related = this.#getByLocationRarity(playground, this.#getRarity(fish,playground), pgFriends);
-                            const prev = probabilities.find(entry => entry.location === loc);
-                            prev.probability += this.#getRodRarity(fish,playground) / related.length;
-                    }
-                }
             }
         }
-
-        for (const fish of probabilities) {
-            fish.buckets = this.#getBuckets(fish);
+        
+        for (const item of probabilities) {
+            item.buckets = this.#getBuckets(item);
         }
+        
         return probabilities;
     }
 }
