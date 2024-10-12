@@ -22,6 +22,7 @@ export default class FishCalculator {
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
+        this.bonus = 1.1;
     }
 
     sortBestLocation() {
@@ -44,15 +45,6 @@ export default class FishCalculator {
             }
         }
         
-        // delete streets with same percentage as playground
-        for (const pg in this.locationInfo) {
-            this.locationInfo[pg].forEach(street => {
-                if (bestLocation[street]?.total === bestLocation[pg]?.total) {
-                    delete bestLocation[street];
-                }
-            });
-        }
-
         return Object.entries(bestLocation).sort((a,b) => b[1].total - a[1].total);
     }
 
@@ -237,7 +229,6 @@ export default class FishCalculator {
             if (!gatheredFish.includes(fish) && fish.locations.includes(location)) {   
                 fishMatch(location, rarity, fish);
             } else if (fish.locations.includes('Anywhere')) {
-                // rarity index changes since Anywhere might be in a different index
                 fishMatch('Anywhere', rarity, fish);
             }
         }
@@ -278,6 +269,20 @@ export default class FishCalculator {
             }
         }
         return data;
+    }
+
+    #checkBonus(fish, loc) {
+        /**
+         * Applies probability bonus if applicable.
+         * @param fish to check
+         * @param loc to check
+         * @returns probability multiplier
+         */
+        if (fish.bonus && fish.bonus === loc) {
+            return this.bonus;
+        } else {
+            return 1;
+        }
     }
 
     #getSmallestLocation(filterFish) {
@@ -398,9 +403,11 @@ export default class FishCalculator {
             } else {
                 // add base rarity 
                 related = this.#getByLocationRarity(loc, this.#getRarity(fish,loc), rarityFriends);
+                const prob = this.#getRodRarity(fish, loc) * this.#checkBonus(fish, loc)
+
                 probabilities.push( { 
                     name: fish.name, 
-                    probability: this.#getRodRarity(fish,loc) / related.length, 
+                    probability: prob / related.length, 
                     location: loc 
                 })
             }
