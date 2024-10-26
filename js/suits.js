@@ -49,48 +49,34 @@ export default class SuitsCalculator {
          *   If toon is maxed or has promotion, it will return with a message.
          *   If toon does not have a disguise, it will return with a message.
          */
-        const facilityInfo = this.#getFacilityData(department);
+        const facilities = this.#getFacilityData(department);
         const toonInfo = this.toon[department];
 
         if (toonInfo.hasDisguise) {
-            let path = [];
-            let total = 0;
-
-            const curr = toonInfo.promotion.current;
             const target = toonInfo.promotion.target;
-            const remaining = target - curr;
 
-            if (remaining <= 0) {
-                return {
-                    path: [],
-                    total: 0,
-                    message: "The toon has no remaining promotion points needed."
-                };
-            }
-
-            const weighted = facilityInfo.sort((a,b) => {
+            const margin = target * 0.1; 
+            const adjustedTarget = target + margin;
+          
+            facilities.sort((a,b) => {
                 return (b.value / b.weight) - (a.value / a.weight);
             })
-
-            for (const facility of weighted) {
-                const count = Math.floor((remaining - total) / facility.value);
-                
-                if (count > 0) {
-                    total += count * facility.value;
-                    // append count times
-                    path = path.concat(Array(count).fill(facility.name));
+          
+            let total = 0;
+            let path = [];
+          
+            for (const facility of facilities) {
+                while (total < adjustedTarget) {
+                    if (total + facility.value <= adjustedTarget) {
+                    total += facility.value;
+                    path.push(facility.name + " " + facility.value);
+                    } else {
+                        break;
+                    }
                 }
-                
-                if (total >= remaining) {
-                    break;
+                if (total >= adjustedTarget) {
+                    break; // Stop if we've met or exceeded the adjusted target
                 }
-            }
-            
-            // ensure remaining is overfilled
-            if (total < remaining) {
-                const overflow = weighted[weighted.length - 1];
-                path.push(overflow.name);
-                total += overflow.value;
             }
 
             return {
@@ -116,44 +102,30 @@ export default class SuitsCalculator {
          *   If toon is maxed or has promotion, it will return with a message.
          *   If toon does not have a disguise, it will return with a message.
          */
-        const facilityInfo = this.#getFacilityData(department);
+        const facilities = this.#getFacilityData(department);
         const toonInfo = this.toon[department];
 
         if (toonInfo.hasDisguise) {
-            let path = [];
-            let total = 0;
-
-            const curr = toonInfo.promotion.current;
             const target = toonInfo.promotion.target;
-            const remaining = target - curr;
 
-            if (remaining <= 0) {
-                return {
-                    path: [],
-                    total: 0,
-                    message: "The toon has no remaining promotion points needed."
-                };
-            }
-
-            for (const facility of facilityInfo) {
-                const count = Math.floor((remaining - total) / facility.value);
-                
-                if (count > 0) {
-                    total += count * facility.value;
-                    // append count times
-                    path = path.concat(Array(count).fill(facility.name));
+            const margin = target * 0.1; 
+            const adjustedTarget = target + margin;
+          
+            let total = 0;
+            let path = [];
+          
+            for (const facility of facilities) {
+                while (total < adjustedTarget) {
+                    if (total + facility.value <= adjustedTarget) {
+                    total += facility.value;
+                    path.push(facility.name + " " + facility.value);
+                    } else {
+                        break;
+                    }
                 }
-                
-                if (total >= remaining) {
-                    break;
+                if (total >= adjustedTarget) {
+                    break; // Stop if we've met or exceeded the adjusted target
                 }
-            }
-            
-            // ensure remaining is overfilled
-            if (total < remaining) {
-                const overflow = facilityInfo[facilityInfo.length - 1];
-                path.push(overflow.name);
-                total += overflow.value;
             }
 
             return {
