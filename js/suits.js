@@ -69,7 +69,8 @@ export default class SuitsCalculator {
                 while (total < adjustedTarget) {
                     if (total + facility.value <= adjustedTarget) {
                     total += facility.value;
-                    path.push(facility.name + " " + facility.value);
+                    path.push(facility.name);
+
                     } else {
                         break;
                     }
