@@ -53,10 +53,12 @@ export default class SuitsCalculator {
         const toonInfo = this.toon[department];
 
         if (toonInfo.hasDisguise) {
+            const curr = toonInfo.promotion.current;
             const target = toonInfo.promotion.target;
+            const remaining = target - curr;
 
-            const margin = target * 0.1; 
-            const adjustedTarget = target + margin;
+            const margin = remaining * 0.1; 
+            const adjustedTarget = remaining + margin;
           
             facilities.sort((a,b) => {
                 return (b.value / b.weight) - (a.value / a.weight);
@@ -76,6 +78,10 @@ export default class SuitsCalculator {
                 }
                 if (total >= adjustedTarget) {
                     break; // Stop if we've met or exceeded the adjusted target
+                }
+                if (facilities[facilities.length-1] === facility) {
+                    total += facility.value
+                    path.push(facility.name);
                 }
             }
 
