@@ -70,6 +70,7 @@ export default class SuitsCalculator {
                     if (total + facility.value <= adjustedTarget) {
                     total += facility.value;
                     path.push(facility.name);
+
                     } else {
                         break;
                     }
