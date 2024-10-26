@@ -7,28 +7,28 @@
       },
     "facilities": {
         "cgc": [
-            { "name": "Final Fringe", "value": 2210, "weight": 24},
-            { "name": "First Fairway", "value": 910, "weight": 16 },
+            { "name": "Final Fringe", "value": 2200, "weight": 24},
+            { "name": "First Fairway", "value": 940, "weight": 16 },
             { "name": "5 story Building", "value": 299, "weight": 11},
             { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "wing": [
-            { "name": "Senior Wing", "value": 1925, "weight": 21 },
-            { "name": "Junior Wing", "value": 808, "weight": 15 },
+            { "name": "Senior Wing", "value": 1950, "weight": 21 },
+            { "name": "Junior Wing", "value": 810, "weight": 15 },
             { "name": "5 story Building", "value": 299, "weight": 11},
             { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "mint": [
-            { "name": "Bullion Mint", "value": 1650, "weight": 20 },
-            { "name": "Coin Mint", "value": 735, "weight": 14 },
+            { "name": "Bullion Mint", "value": 1700, "weight": 20 },
+            { "name": "Coin Mint", "value": 750, "weight": 14 },
             { "name": "5 story Building", "value": 299, "weight": 11},
             { "name": "4 story Building", "value": 150, "weight": 8}
         ],
         "factory": [
-          { "name": "long Steel Factory", "value": 1540, "weight": 21 },
-          { "name": "short Steel Factory", "value": 900, "weight": 12 },
-          { "name": "long Scrap Factory", "value": 620, "weight": 15 },
-          { "name": "short Scrap Factory", "value": 400, "weight": 8 },
+          { "name": "long Steel Factory", "value": 1575, "weight": 21 },
+          { "name": "short Steel Factory", "value": 950, "weight": 11 },
+          { "name": "long Scrap Factory", "value": 600, "weight": 15 },
+          { "name": "short Scrap Factory", "value": 350, "weight": 8 },
           { "name": "5 story Building", "value": 299, "weight": 11},
           { "name": "4 story Building", "value": 150, "weight": 8}
         ]
