@@ -53,35 +53,20 @@ export default class SuitsCalculator {
         const toonInfo = this.toon[department];
 
         if (toonInfo.hasDisguise) {
-            const curr = toonInfo.promotion.current;
-            const target = toonInfo.promotion.target;
-            const remaining = target - curr;
-
-            const margin = remaining * 0.1; 
-            const adjustedTarget = remaining + margin;
-          
+            const remaining = toonInfo.promotion.target - toonInfo.promotion.current;
+                
             facilities.sort((a,b) => {
                 return (b.value / b.weight) - (a.value / a.weight);
             })
-          
+            
             let total = 0;
             let path = [];
-          
+            const overflow = remaining * 0.05;
+                     
             for (const facility of facilities) {
-                while (total < adjustedTarget) {
-                    if (total + facility.value <= adjustedTarget) {
+                while (total < remaining || total <= remaining + overflow) {
+                    path.push(facility.name);
                     total += facility.value;
-                    path.push(facility.name);
-                    } else {
-                        break;
-                    }
-                }
-                if (total >= adjustedTarget) {
-                    break; // Stop if we've met or exceeded the adjusted target
-                }
-                if (facilities[facilities.length-1] === facility) {
-                    total += facility.value
-                    path.push(facility.name);
                 }
             }
 
