@@ -13,7 +13,7 @@ export default class RacingCalculator {
         const jsonPath = path.join(__dirname, '../data/race_trophies.json');
         this.race_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8')).trophies;
 
-        this.toon = JSON.parse(data).racing;
+        this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
     }
 
