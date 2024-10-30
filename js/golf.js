@@ -77,7 +77,7 @@ export default class GolfCalculator {
          * @returns {int} - containing trophies earned
          */
         let count = 0;
-        for (const trophy of this.race_info) {
+        for (const trophy of this.golf_info) {
             if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
                 count += 1;
             }
