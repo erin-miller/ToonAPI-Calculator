@@ -1,6 +1,6 @@
 {
   "name": "toonapi-calculator",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Provides various classes to assist in calculations with information provided by Toontown Rewritten's Local Toon API.",
   "main": "index.js",
   "type": "module",
@@ -18,5 +18,6 @@
   },
   "homepage": "https://github.com/erin-miller/ToonAPI-Calculator#readme",
   "dependencies": {
+    "toonapi-calculator": "file:"
   }
 }

@@ -24,7 +24,8 @@
         "factory": [
           { "name": "short Steel Factory", "value": 905, "weight": 12.4 },
           { "name": "long Scrap Factory", "value": 600, "weight": 16.5 },
-          { "name": "short Scrap Factory", "value": 350, "weight": 9.64 }
+          { "name": "short Scrap Factory", "value": 350, "weight": 9.64 },
+          { "name": "5 story Building", "value": 270, "weight": 12.67 }
         ]
     }
   }

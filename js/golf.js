@@ -69,5 +69,20 @@ export default class GolfCalculator {
         }
         return Math.floor(count / 10);
     }
+
+    getTotalEarned() {
+        /**
+         * Finds how many trophies the toon has earned.
+         * 
+         * @returns {int} - containing trophies earned
+         */
+        let count = 0;
+        for (const trophy of this.race_info) {
+            if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
+                count += 1;
+            }
+        }
+        return count;
+    }
 }
 
