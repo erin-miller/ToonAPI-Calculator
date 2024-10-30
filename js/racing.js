@@ -13,7 +13,7 @@ export default class RacingCalculator {
         const jsonPath = path.join(__dirname, '../data/race_trophies.json');
         this.race_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8')).trophies;
 
-        this.toon = JSON.parse(data);
+        this.toon = JSON.parse(data).racing;
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
     }
 
@@ -62,8 +62,11 @@ export default class RacingCalculator {
          */
         let count = 0;
         for (const trophy of this.race_info) {
-            if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
-                count += 1;
+            const earned = this.toon[trophy.description] || 0;
+            for (const val of trophy.values) {
+                if (earned >= val) {
+                    count += 1;
+                }
             }
         }
         return Math.floor(count / 10);
@@ -77,8 +80,11 @@ export default class RacingCalculator {
          */
         let count = 0;
         for (const trophy of this.race_info) {
-            if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
-                count += 1;
+            const earned = this.toon[trophy.description] || 0;
+            for (const val of trophy.values) {
+                if (earned >= val) {
+                    count += 1;
+                }
             }
         }
         return count;

@@ -63,8 +63,11 @@ export default class GolfCalculator {
          */
         let count = 0;
         for (const trophy of this.golf_info) {
-            if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
-                count += 1;
+            const earned = this.toon[trophy.description] || 0;
+            for (const val of trophy.values) {
+                if (earned >= val) {
+                    count += 1;
+                }
             }
         }
         return Math.floor(count / 10);
@@ -78,8 +81,11 @@ export default class GolfCalculator {
          */
         let count = 0;
         for (const trophy of this.golf_info) {
-            if (this.toon[trophy.description] >= trophy.values[trophy.values.length-1]) {
-                count += 1;
+            const earned = this.toon[trophy.description] || 0;
+            for (const val of trophy.values) {
+                if (earned >= val) {
+                    count += 1;
+                }
             }
         }
         return count;
