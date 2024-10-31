@@ -16,7 +16,7 @@ There are 4 available calculators:
 You can import each class like in the example below.
 
 ```javascript
-import GolfCalculator from toonapi-calculator/js/golf.js;
+import GolfCalculator from toonapi-calculator;
 ```
 
 Each calculator takes the toon's JSON string from the local toon API into its constructor.
