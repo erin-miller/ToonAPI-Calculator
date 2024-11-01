@@ -58,6 +58,14 @@ export default class SuitsCalculator {
                 message: "Toon does not have a disguise."
             };
         }
+
+        if (toonInfo.promotion.target === toonInfo.promotion.current) {
+            return {
+                path: [],
+                total: -2,
+                message: "Toon has their promotion."
+            }
+        }
         
         const facilities = this.#getFacilityData(department);
         let remaining = toonInfo.promotion.target - toonInfo.promotion.current;
