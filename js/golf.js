@@ -90,5 +90,21 @@ export default class GolfCalculator {
         }
         return count;
     }
+
+    getCompletedTrophies() {
+        let count = 0;
+        const trophies = [];
+        for (const trophy of this.golf_info) {
+            const earned = this.toon[trophy.description] || 0;
+            for (const val of trophy.values) {
+                if (earned >= val) {
+                    count += 1;
+                }
+            }
+            trophies.push([trophy.description, count]);
+            count = 0;
+        }
+        return trophies;
+    }
 }
 
