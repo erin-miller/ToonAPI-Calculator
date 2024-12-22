@@ -135,6 +135,15 @@ export default class FishCalculator {
             if (fish.locations.includes('Anywhere')) {
                 gatheredFish.push(fish);
             }
+
+            for (let [playground, streets] of Object.entries(this.locationInfo)) {
+                if (playground === location) { // location is a playground
+                    if (streets.some(street => fish.locations.includes(street))) {
+                        // add if fish is located in pg street
+                        gatheredFish.push(fish);
+                    }
+                }
+            }
         }
 
         // add playground fish 
@@ -235,6 +244,13 @@ export default class FishCalculator {
 
             if (fish.locations.includes('Anywhere')) {
                 fishMatch('Anywhere', rarity, fish);
+            }
+
+            // fish can get added if they have a street and playground
+            for (let [playground, streets] of Object.entries(this.locationInfo)) {
+                if (playground === location && streets.some(street => fish.locations.includes(street)) && !gatheredFish.includes(fish)) {
+                    fishMatch(playground, rarity, fish);
+                }
             }
         }
 
