@@ -49,54 +49,60 @@ export default class SuitsCalculator {
          *   If toon is maxed or has promotion, it will return with a message.
          *   If toon does not have a disguise, it will return with a message.
          */
-        const facilities = this.#getFacilityData(department);
         const toonInfo = this.toon[department];
-
-        if (toonInfo.hasDisguise) {
-            const curr = toonInfo.promotion.current;
-            const target = toonInfo.promotion.target;
-            const remaining = target - curr;
-
-            const margin = remaining * 0.1; 
-            const adjustedTarget = remaining + margin;
-          
-            facilities.sort((a,b) => {
-                return (b.value / b.weight) - (a.value / a.weight);
-            })
-          
-            let total = 0;
-            let path = [];
-          
-            for (const facility of facilities) {
-                while (total < adjustedTarget) {
-                    if (total + facility.value <= adjustedTarget) {
-                    total += facility.value;
-                    path.push(facility.name);
-                    } else {
-                        break;
-                    }
-                }
-                if (total >= adjustedTarget) {
-                    break; // Stop if we've met or exceeded the adjusted target
-                }
-                if (facilities[facilities.length-1] === facility) {
-                    total += facility.value
-                    path.push(facility.name);
-                }
-            }
-
-            return {
-                path: path,
-                total: total
-            };
-
-        } else {
+        
+        if (!toonInfo.hasDisguise) {
             return {
                 path: [],
                 total: -1,
                 message: "Toon does not have a disguise."
             };
         }
+
+        if (toonInfo.promotion.target === toonInfo.promotion.current) {
+            return {
+                path: [],
+                total: -2,
+                message: "Toon has their promotion."
+            }
+        }
+        
+        const facilities = this.#getFacilityData(department);
+        let remaining = toonInfo.promotion.target - toonInfo.promotion.current;
+            
+        facilities.sort((a,b) => {
+            return (b.value / b.weight) - (a.value / a.weight);
+        })
+        
+        let total = 0;
+        let path = [];
+        
+        for (const facility of facilities) {
+            const overflow = facility.value * 0.44;
+            while (total + facility.value < remaining || 
+                total + facility.value <= remaining + overflow ||
+                total + facility.value <= remaining - overflow
+                ) {
+                path.push(facility.name);
+                total += facility.value;
+
+                if (total + facility.value > remaining + overflow) {
+                    break;
+                }
+            }
+        }
+
+        if (total == 0) {
+            const last = facilities[facilities.length-1];
+            path.push(last.name);
+            total += last.value;
+        }
+
+
+        return {
+            path: path,
+            total: total >= remaining ? total : remaining
+        };
     }
 
     getBestPath(department) {
