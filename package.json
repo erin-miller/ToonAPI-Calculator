@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "start"
+    "test": "start",
+    "build": "npx rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -13,11 +14,17 @@
   },
   "author": "Erin Miller",
   "license": "GPL-3.0",
+  "files": [
+    "data/"
+  ],
   "bugs": {
     "url": "https://github.com/erin-miller/ToonAPI-Calculator/issues"
   },
   "homepage": "https://github.com/erin-miller/ToonAPI-Calculator#readme",
   "dependencies": {
     "toonapi-calculator": "file:"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0"
   }
 }

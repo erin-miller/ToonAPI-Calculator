@@ -1,7 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 export default class FishCalculator {
     constructor(data) {
         /**
@@ -9,20 +5,35 @@ export default class FishCalculator {
          * 
          * @param {string} data: Json containing the toon's fish progress.
          */
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
+        this.fishingInfo = null;
+        this.loadFishData();
 
-        const fishPath = path.join(__dirname, '../data/fish.json');
-        this.fishingInfo = JSON.parse(fs.readFileSync(fishPath, 'utf8'));
-
-        const locationPath = path.join(__dirname, '../data/locations.json');
-        this.locationInfo = JSON.parse(fs.readFileSync(locationPath, 'utf8'));
+        this.locationInfo = null;
+        this.loadLocationData();
 
         const toon = JSON.parse(data);
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
         this.bonus = 1.1;
+    }
+
+    async loadFishData() {
+        try {
+            const response = await import('/data/fish.json');
+            this.fishingInfo = response;
+        } catch (error) {
+            console.error('Error loading fish data:', error);
+        }
+    }
+
+    async loadLocationData() {
+        try {
+            const response = await import('/data/locations.json');
+            this.locationInfo = response;
+        } catch (error) {
+            console.error('Error loading locations data:', error);
+        }
     }
 
     sortBestLocation() {

@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 export default class RacingCalculator {
     constructor(data) {
         /**
@@ -8,13 +5,20 @@ export default class RacingCalculator {
          *
          *@param {string} data: JSON containing the toon's race progress.
          */
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-        const jsonPath = path.join(__dirname, '../data/race_trophies.json');
-        this.race_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8')).trophies;
+        this.race_info = null;
+        this.loadRacingData();
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
+    }
+
+    async loadRacingData() {
+        try {
+            const response = await import('/data/race_trophies.json');
+            this.race_info = response.trophies;
+        } catch (error) {
+            console.error('Error loading racing data:', error);
+        }
     }
 
     getBestTrophy() {
