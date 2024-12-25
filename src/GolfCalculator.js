@@ -1,7 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 export default class GolfCalculator {
     constructor(data) {
         /**
@@ -9,13 +5,20 @@ export default class GolfCalculator {
          *
          * @param {string} data: JSON containing the toon's golf progress.
          */
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-        const jsonPath = path.join(__dirname, '../data/golf_trophies.json');
-        this.golf_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8')).trophies;
+        this.golf_info = null;
+        this.loadGolfData;
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
+    }
+    
+    async loadGolfData() {
+        try {
+            const response = await import('/data/golf_trophies.json');
+            this.golf_info = response.trophies;
+        } catch (error) {
+            console.error('Error loading golf data:', error);
+        }
     }
 
     getBestTrophy() {

@@ -1,7 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 export default class SuitsCalculator {
     constructor(data) {
         /**
@@ -9,11 +5,19 @@ export default class SuitsCalculator {
          *
          * @param {string} data - JSON containing the toon's suits progress.
          */
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-        const jsonPath = path.join(__dirname, '../data/suits.json');
-        this.suits_info = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+        this.suits_info = null;
+        this.loadSuitsData();
+
         this.toon = JSON.parse(data);
+    }
+
+    async loadSuitsData() {
+        try {
+            const response = await import('/data/suits.json');
+            this.suits_info = response;
+        } catch (error) {
+            console.error('Error loading suits data:', error);
+        }
     }
 
     getCurrent(department) {
