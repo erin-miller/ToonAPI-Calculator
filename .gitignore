@@ -2,7 +2,6 @@ node_modules# Node.js dependencies
 /node_modules/
 
 # Build outputs
-/dist/
 /build/
 
 # Logs
@@ -40,6 +39,10 @@ yarn-debug.log*
 yarn-error.log*
 
 # Others
-/py/
 test.js
 *.txt
+
+/rollup.config.js
+/package-lock.json
+/.git
+/.github
