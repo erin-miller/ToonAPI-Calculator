@@ -42,7 +42,8 @@ yarn-error.log*
 test.js
 *.txt
 
-/rollup.config.js
-/package-lock.json
-/.git
-/.github
+rollup.config.js
+package-lock.json
+/.git/
+/.github/
+
