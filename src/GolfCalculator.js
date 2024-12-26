@@ -14,7 +14,7 @@ export default class GolfCalculator {
     
     async loadGolfData() {
         try {
-            const response = await import('/data/golf_trophies.json');
+            const response = await import('../data/golf_trophies.json');
             this.golf_info = response.trophies;
         } catch (error) {
             console.error('Error loading golf data:', error);

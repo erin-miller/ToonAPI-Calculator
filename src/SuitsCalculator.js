@@ -13,7 +13,7 @@ export default class SuitsCalculator {
 
     async loadSuitsData() {
         try {
-            const response = await import('/data/suits.json');
+            const response = await import('../data/suits.json');
             this.suits_info = response;
         } catch (error) {
             console.error('Error loading suits data:', error);

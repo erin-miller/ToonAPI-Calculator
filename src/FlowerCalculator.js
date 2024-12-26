@@ -13,7 +13,7 @@ export default class FlowerCalculator {
 
     async loadFlowerData() {
         try {
-            const data = await import('/data/flowers_combos.json');
+            const data = await import('../data/flowers_combos.json');
             this.golf_info = data.flowers;
         } catch (error) {
             console.error('Error loading flower data:', error);

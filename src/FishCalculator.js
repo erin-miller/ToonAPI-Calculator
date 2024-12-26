@@ -20,7 +20,7 @@ export default class FishCalculator {
 
     async loadFishData() {
         try {
-            const response = await import('/data/fish.json');
+            const response = await import('../data/fish.json');
             this.fishingInfo = response;
         } catch (error) {
             console.error('Error loading fish data:', error);
@@ -29,7 +29,7 @@ export default class FishCalculator {
 
     async loadLocationData() {
         try {
-            const response = await import('/data/locations.json');
+            const response = await import('../data/locations.json');
             this.locationInfo = response;
         } catch (error) {
             console.error('Error loading locations data:', error);

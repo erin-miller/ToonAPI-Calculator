@@ -20,7 +20,7 @@ class FishCalculator {
 
     async loadFishData() {
         try {
-            const response = await import('../../../../../data/fish.json');
+            const response = await import('./fish-DZCxSjY3.js');
             this.fishingInfo = response;
         } catch (error) {
             console.error('Error loading fish data:', error);
@@ -29,7 +29,7 @@ class FishCalculator {
 
     async loadLocationData() {
         try {
-            const response = await import('../../../../../data/locations.json');
+            const response = await import('./locations-C0JMfQGh.js');
             this.locationInfo = response;
         } catch (error) {
             console.error('Error loading locations data:', error);
@@ -491,7 +491,7 @@ class FlowerCalculator {
 
     async loadFlowerData() {
         try {
-            const data = await import('../../../../../data/flowers_combos.json');
+            const data = await import('./flowers_combos-YxqZ9M_R.js');
             this.golf_info = data.flowers;
         } catch (error) {
             console.error('Error loading flower data:', error);
@@ -519,7 +519,7 @@ class GolfCalculator {
     
     async loadGolfData() {
         try {
-            const response = await import('../../../../../data/golf_trophies.json');
+            const response = await import('./golf_trophies-CW_Ukt3a.js');
             this.golf_info = response.trophies;
         } catch (error) {
             console.error('Error loading golf data:', error);
@@ -632,7 +632,7 @@ class RacingCalculator {
 
     async loadRacingData() {
         try {
-            const response = await import('../../../../../data/race_trophies.json');
+            const response = await import('./race_trophies-BBYGx3HK.js');
             this.race_info = response.trophies;
         } catch (error) {
             console.error('Error loading racing data:', error);
@@ -744,7 +744,7 @@ class SuitsCalculator {
 
     async loadSuitsData() {
         try {
-            const response = await import('../../../../../data/suits.json');
+            const response = await import('./suits-RM8e3DZr.js');
             this.suits_info = response;
         } catch (error) {
             console.error('Error loading suits data:', error);
@@ -902,3 +902,4 @@ class SuitsCalculator {
 }
 
 export { FishCalculator, FlowerCalculator, GolfCalculator, RacingCalculator, SuitsCalculator };
+//# sourceMappingURL=index.js.map

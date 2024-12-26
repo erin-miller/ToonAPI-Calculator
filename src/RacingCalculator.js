@@ -14,7 +14,7 @@ export default class RacingCalculator {
 
     async loadRacingData() {
         try {
-            const response = await import('/data/race_trophies.json');
+            const response = await import('../data/race_trophies.json');
             this.race_info = response.trophies;
         } catch (error) {
             console.error('Error loading racing data:', error);
