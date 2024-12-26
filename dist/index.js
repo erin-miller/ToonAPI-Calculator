@@ -1,3 +1,819 @@
+var rods = {
+	Twig: {
+		rrf: 3.6,
+		weight_max: 4,
+		probability: [
+			0.3157,
+			0.2365,
+			0.1709,
+			0.1179,
+			0.0765,
+			0.0455,
+			0.0238,
+			0.0101,
+			0.00279,
+			0.000251
+		]
+	},
+	Bamboo: {
+		rrf: 3.51,
+		weight_max: 8,
+		probability: [
+			0.3091,
+			0.2339,
+			0.171,
+			0.1195,
+			0.0787,
+			0.0477,
+			0.0255,
+			0.0111,
+			0.00321,
+			0.000309
+		]
+	},
+	Hardwood: {
+		rrf: 3.42,
+		weight_max: 12,
+		probability: [
+			0.3029,
+			0.2312,
+			0.1709,
+			0.121,
+			0.0809,
+			0.0499,
+			0.0273,
+			0.0122,
+			0.00369,
+			0.00038
+		]
+	},
+	Steel: {
+		rrf: 3.24,
+		weight_max: 16,
+		probability: [
+			0.2892,
+			0.2255,
+			0.1704,
+			0.1238,
+			0.0852,
+			0.0545,
+			0.0311,
+			0.0148,
+			0.00486,
+			0.000576
+		]
+	},
+	Gold: {
+		rrf: 3.06,
+		weight_max: 20,
+		probability: [
+			0.2756,
+			0.2192,
+			0.1695,
+			0.1263,
+			0.0896,
+			0.0593,
+			0.0355,
+			0.0179,
+			0.00639,
+			0.000871
+		]
+	}
+};
+var fish = [
+	{
+		name: "Balloon Fish",
+		weight_min: 1,
+		weight_max: 3,
+		rarity: 1,
+		locations: [
+			"Anywhere"
+		]
+	},
+	{
+		name: "Hot Air Balloon Fish",
+		weight_min: 1,
+		weight_max: 1,
+		rarity: 4,
+		locations: [
+			"Toontown Central",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Weather Balloon Fish",
+		weight_min: 3,
+		weight_max: 5,
+		rarity: 5,
+		locations: [
+			"Punchline Place",
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Water Balloon Fish",
+		weight_min: 3,
+		weight_max: 5,
+		rarity: 3,
+		locations: [
+			"Silly Street",
+			"Daisy Gardens"
+		]
+	},
+	{
+		name: "Red Balloon Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 2,
+		locations: [
+			"Loopy Lane",
+			"Toontown Central"
+		]
+	},
+	{
+		name: "Cat Fish",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 1,
+		locations: [
+			"Daisy Gardens",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Siamese Cat Fish",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 9,
+		locations: [
+			"Elm Street",
+			"Daisy Gardens"
+		]
+	},
+	{
+		name: "Alley Cat Fish",
+		weight_min: 5,
+		weight_max: 11,
+		rarity: 4,
+		locations: [
+			"Lullaby Lane"
+		]
+	},
+	{
+		name: "Tabby Cat Fish",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 3,
+		locations: [
+			"Daisy Gardens",
+			"Estate"
+		]
+	},
+	{
+		name: "Tom Cat Fish",
+		weight_min: 5,
+		weight_max: 11,
+		rarity: 2,
+		locations: [
+			"Donald's Dreamland",
+			"Estate"
+		]
+	},
+	{
+		name: "Clown Fish",
+		weight_min: 2,
+		weight_max: 8,
+		rarity: 1,
+		locations: [
+			"Toontown Central",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Sad Clown Fish",
+		weight_min: 2,
+		weight_max: 8,
+		rarity: 4,
+		locations: [
+			"Toontown Central",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Party Clown Fish",
+		weight_min: 2,
+		weight_max: 8,
+		rarity: 2,
+		locations: [
+			"Toontown Central",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Circus Clown Fish",
+		weight_min: 2,
+		weight_max: 8,
+		rarity: 6,
+		locations: [
+			"Toontown Central",
+			"Minnie's Melodyland"
+		]
+	},
+	{
+		name: "Frozen Fish",
+		weight_min: 8,
+		weight_max: 12,
+		rarity: 1,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Star Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 1,
+		locations: [
+			"Anywhere"
+		]
+	},
+	{
+		name: "Five Star Fish",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 2,
+		locations: [
+			"Minnie's Melodyland",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Rock Star Fish",
+		weight_min: 5,
+		weight_max: 11,
+		rarity: 5,
+		locations: [
+			"Minnie's Melodyland",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Shining Star Fish",
+		weight_min: 4,
+		weight_max: 9,
+		rarity: 7,
+		locations: [
+			"Estate",
+			"Anywhere"
+		]
+	},
+	{
+		name: "All Star Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 10,
+		bonus: "Donald's Dock",
+		locations: [
+			"Toontown Central",
+			"Donald's Dock",
+			"Estate"
+		]
+	},
+	{
+		name: "Holey Mackerel",
+		weight_min: 6,
+		weight_max: 10,
+		rarity: 9,
+		locations: [
+			"Estate",
+			"Toontown Central",
+			"Donald's Dock"
+		]
+	},
+	{
+		name: "Dog Fish",
+		weight_min: 7,
+		weight_max: 15,
+		rarity: 1,
+		locations: [
+			"Donald's Dock",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Bull Dog Fish",
+		weight_min: 18,
+		weight_max: 20,
+		rarity: 6,
+		locations: [
+			"Donald's Dock",
+			"Estate"
+		]
+	},
+	{
+		name: "Hot Dog Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 5,
+		locations: [
+			"Donald's Dock",
+			"Estate"
+		]
+	},
+	{
+		name: "Dalmatian Dog Fish",
+		weight_min: 3,
+		weight_max: 7,
+		rarity: 4,
+		locations: [
+			"Donald's Dock",
+			"Estate"
+		]
+	},
+	{
+		name: "Puppy Dog Fish",
+		weight_min: 1,
+		weight_max: 2,
+		rarity: 2,
+		locations: [
+			"Donald's Dock",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Amore Eel",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 1,
+		locations: [
+			"Daisy Gardens",
+			"Estate",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Electric Amore Eel",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 3,
+		locations: [
+			"Daisy Gardens",
+			"Estate"
+		]
+	},
+	{
+		name: "Nurse Shark",
+		weight_min: 4,
+		weight_max: 12,
+		rarity: 5,
+		locations: [
+			"Minnie's Melodyland",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Clara Nurse Shark",
+		weight_min: 4,
+		weight_max: 12,
+		rarity: 7,
+		locations: [
+			"Baritone Boulevard",
+			"Minnie's Melodyland"
+		]
+	},
+	{
+		name: "Florence Nurse Shark",
+		weight_min: 4,
+		weight_max: 12,
+		rarity: 8,
+		locations: [
+			"Tenor Terrace",
+			"Minnie's Melodyland"
+		]
+	},
+	{
+		name: "King Crab",
+		weight_min: 2,
+		weight_max: 4,
+		rarity: 3,
+		locations: [
+			"Donald's Dock",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Alaskan King Crab",
+		weight_min: 5,
+		weight_max: 8,
+		rarity: 7,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Old King Crab",
+		weight_min: 4,
+		weight_max: 6,
+		rarity: 8,
+		locations: [
+			"Lighthouse Lane"
+		]
+	},
+	{
+		name: "Moon Fish",
+		weight_min: 4,
+		weight_max: 6,
+		rarity: 1,
+		locations: [
+			"Donald's Dreamland"
+		]
+	},
+	{
+		name: "Full Moon Fish",
+		weight_min: 14,
+		weight_max: 18,
+		rarity: 10,
+		bonus: "Donald's Dreamland",
+		locations: [
+			"Donald's Dreamland"
+		]
+	},
+	{
+		name: "Half Moon Fish",
+		weight_min: 6,
+		weight_max: 10,
+		rarity: 8,
+		locations: [
+			"Lullaby Lane"
+		]
+	},
+	{
+		name: "New Moon Fish",
+		weight_min: 1,
+		weight_max: 1,
+		rarity: 3,
+		locations: [
+			"Donald's Dreamland"
+		]
+	},
+	{
+		name: "Crescent Moon Fish",
+		weight_min: 2,
+		weight_max: 6,
+		rarity: 6,
+		locations: [
+			"Lullaby Lane"
+		]
+	},
+	{
+		name: "Harvest Moon Fish",
+		weight_min: 10,
+		weight_max: 14,
+		rarity: 4,
+		locations: [
+			"Donald's Dreamland",
+			"Daisy Gardens"
+		]
+	},
+	{
+		name: "Sea Horse",
+		weight_min: 12,
+		weight_max: 16,
+		rarity: 2,
+		locations: [
+			"Estate",
+			"Daisy Gardens",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Rocking Sea Horse",
+		weight_min: 14,
+		weight_max: 18,
+		rarity: 3,
+		locations: [
+			"Estate",
+			"Daisy Gardens",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Clydesdale Sea Horse",
+		weight_min: 14,
+		weight_max: 20,
+		rarity: 5,
+		locations: [
+			"Estate",
+			"Daisy Gardens"
+		]
+	},
+	{
+		name: "Arabian Sea Horse",
+		weight_min: 14,
+		weight_max: 20,
+		rarity: 7,
+		locations: [
+			"Estate",
+			"Daisy Gardens"
+		]
+	},
+	{
+		name: "Pool Shark",
+		weight_min: 9,
+		weight_max: 11,
+		rarity: 3,
+		locations: [
+			"Anywhere"
+		]
+	},
+	{
+		name: "Kiddie Pool Shark",
+		weight_min: 8,
+		weight_max: 12,
+		rarity: 5,
+		locations: [
+			"Daisy Gardens",
+			"Donald's Dock"
+		]
+	},
+	{
+		name: "Swimming Pool Shark",
+		weight_min: 8,
+		weight_max: 12,
+		rarity: 6,
+		locations: [
+			"Daisy Gardens",
+			"Donald's Dock"
+		]
+	},
+	{
+		name: "Olympic Pool Shark",
+		weight_min: 8,
+		weight_max: 16,
+		rarity: 7,
+		locations: [
+			"Daisy Gardens",
+			"Donald's Dock"
+		]
+	},
+	{
+		name: "Brown Bear Acuda",
+		weight_min: 10,
+		weight_max: 18,
+		rarity: 2,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Black Bear Acuda",
+		weight_min: 10,
+		weight_max: 18,
+		rarity: 3,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Koala Bear Acuda",
+		weight_min: 10,
+		weight_max: 18,
+		rarity: 4,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Honey Bear Acuda",
+		weight_min: 10,
+		weight_max: 18,
+		rarity: 5,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Polar Bear Acuda",
+		weight_min: 12,
+		weight_max: 20,
+		rarity: 6,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Panda Bear Acuda",
+		weight_min: 14,
+		weight_max: 20,
+		rarity: 7,
+		locations: [
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Kodiac Bear Acuda",
+		weight_min: 14,
+		weight_max: 20,
+		rarity: 8,
+		locations: [
+			"Sleet Street",
+			"The Brrrgh"
+		]
+	},
+	{
+		name: "Grizzly Bear Acuda",
+		weight_min: 16,
+		weight_max: 20,
+		rarity: 10,
+		bonus: "Walrus Way",
+		locations: [
+			"The Brrrgh",
+			"Walrus Way"
+		]
+	},
+	{
+		name: "Cutthroat Trout",
+		weight_min: 2,
+		weight_max: 10,
+		rarity: 2,
+		locations: [
+			"Donald's Dock",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Captain Cutthroat Trout",
+		weight_min: 4,
+		weight_max: 10,
+		rarity: 6,
+		locations: [
+			"Barnacle Boulevard",
+			"Donald's Dock"
+		]
+	},
+	{
+		name: "Scurvy Cutthroat Trout",
+		weight_min: 4,
+		weight_max: 10,
+		rarity: 7,
+		locations: [
+			"Seaweed Street",
+			"Donald's Dock"
+		]
+	},
+	{
+		name: "Piano Tuna",
+		weight_min: 13,
+		weight_max: 17,
+		rarity: 5,
+		locations: [
+			"Minnie's Melodyland",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Grand Piano Tuna",
+		weight_min: 16,
+		weight_max: 20,
+		rarity: 10,
+		bonus: "Alto Avenue",
+		locations: [
+			"Minnie's Melodyland",
+			"Alto Avenue"
+		]
+	},
+	{
+		name: "Baby Grand Piano Tuna",
+		weight_min: 12,
+		weight_max: 18,
+		rarity: 9,
+		locations: [
+			"Tenor Terrace",
+			"Minnie's Melodyland"
+		]
+	},
+	{
+		name: "Upright Piano Tuna",
+		weight_min: 12,
+		weight_max: 18,
+		rarity: 6,
+		locations: [
+			"Minnie's Melodyland"
+		]
+	},
+	{
+		name: "Player Piano Tuna",
+		weight_min: 12,
+		weight_max: 18,
+		rarity: 7,
+		locations: [
+			"Minnie's Melodyland"
+		]
+	},
+	{
+		name: "Peanut Butter & Jellyfish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 2,
+		locations: [
+			"Toontown Central",
+			"Estate",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Grape PB&J Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 3,
+		locations: [
+			"The Brrrgh",
+			"Estate",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Crunchy PB&J Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 4,
+		locations: [
+			"Daisy Gardens",
+			"Estate"
+		]
+	},
+	{
+		name: "Strawberry PB&J Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 5,
+		locations: [
+			"Donald's Dreamland",
+			"Estate",
+			"Anywhere"
+		]
+	},
+	{
+		name: "Concord Grape PB&J Fish",
+		weight_min: 1,
+		weight_max: 5,
+		rarity: 10,
+		bonus: "The Brrrgh",
+		locations: [
+			"The Brrrgh",
+			"Donald's Dreamland"
+		]
+	},
+	{
+		name: "Devil Ray",
+		weight_min: 1,
+		weight_max: 20,
+		rarity: 9,
+		locations: [
+			"Donald's Dreamland",
+			"Daisy Gardens"
+		]
+	}
+];
+var fishData = {
+	rods: rods,
+	fish: fish
+};
+
+var Estate = [
+];
+var locData = {
+	"Toontown Central": [
+	"Loopy Lane",
+	"Silly Street",
+	"Punchline Place"
+],
+	"Donald's Dock": [
+	"Barnacle Boulevard",
+	"Lighthouse Lane",
+	"Seaweed Street"
+],
+	"Daisy Gardens": [
+	"Elm Street",
+	"Maple Street",
+	"Oak Street"
+],
+	"Minnie's Melodyland": [
+	"Alto Avenue",
+	"Baritone Boulevard",
+	"Tenor Terrace"
+],
+	"The Brrrgh": [
+	"Sleet Street",
+	"Walrus Way"
+],
+	"Donald's Dreamland": [
+	"Lullaby Lane",
+	"Pajama Place"
+],
+	Estate: Estate
+};
+
 class FishCalculator {
     constructor(data) {
         /**
@@ -5,35 +821,15 @@ class FishCalculator {
          * 
          * @param {string} data: Json containing the toon's fish progress.
          */
-        this.fishingInfo = null;
-        this.loadFishData();
+        this.fishingInfo = fishData;
 
-        this.locationInfo = null;
-        this.loadLocationData();
+        this.locationInfo = locData;
 
         const toon = JSON.parse(data);
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
         this.bonus = 1.1;
-    }
-
-    async loadFishData() {
-        try {
-            const response = await import('./fish-DZCxSjY3.js');
-            this.fishingInfo = response;
-        } catch (error) {
-            console.error('Error loading fish data:', error);
-        }
-    }
-
-    async loadLocationData() {
-        try {
-            const response = await import('./locations-C0JMfQGh.js');
-            this.locationInfo = response;
-        } catch (error) {
-            console.error('Error loading locations data:', error);
-        }
     }
 
     sortBestLocation() {
@@ -476,6 +1272,272 @@ class FishCalculator {
     }
 }
 
+var flowers = {
+	"School Daisy": [
+		"yellow"
+	],
+	"What-in Carnation": [
+		"pink"
+	],
+	"Lily-of-the-Alley": [
+		"cyan"
+	],
+	"Laff-o-dil": [
+		"green"
+	],
+	"Dandy Pansy": [
+		"orange"
+	],
+	"Lazy Daisy": [
+		"yellow",
+		"red"
+	],
+	"Instant Carnation": [
+		"pink",
+		"yellow"
+	],
+	"Lily Pad": [
+		"cyan",
+		"green"
+	],
+	"Daffy Dill": [
+		"green",
+		"cyan"
+	],
+	"Chim Pansy": [
+		"orange",
+		"cyan"
+	],
+	"Midsummer Daisy": [
+		"yellow",
+		"red",
+		"green"
+	],
+	"Hybrid Carnation": [
+		"pink",
+		"red",
+		"red"
+	],
+	"Tiger Lily": [
+		"cyan",
+		"orange",
+		"orange"
+	],
+	"Potsen Pansy": [
+		"orange",
+		"red",
+		"red"
+	],
+	"Summer's Last Rose": [
+		"red",
+		"red",
+		"red"
+	],
+	"Freshasa Daisy": [
+		"yellow",
+		"red",
+		"cyan",
+		"orange"
+	],
+	"Livered Lily": [
+		"cyan",
+		"orange",
+		"orange",
+		"pink"
+	],
+	"Giraff-o-dil": [
+		"green",
+		"pink",
+		"yellow",
+		"yellow"
+	],
+	"Marzi Pansy": [
+		"orange",
+		"yellow",
+		"yellow",
+		"red"
+	],
+	"Corn Rose": [
+		"red",
+		"yellow",
+		"orange",
+		"yellow"
+	],
+	"Whoopsie Daisy": [
+		"yellow",
+		"red",
+		"orange",
+		"orange",
+		"orange"
+	],
+	Onelip: [
+		"violet",
+		"red",
+		"blue",
+		"violet",
+		"violet"
+	],
+	"Side Carnation": [
+		"pink",
+		"red",
+		"green",
+		"blue",
+		"red"
+	],
+	"Chili Lily": [
+		"cyan",
+		"red",
+		"red",
+		"red",
+		"red"
+	],
+	"Time and a half-o-dil": [
+		"green",
+		"pink",
+		"blue",
+		"pink",
+		"pink"
+	],
+	"Upsy Daisy": [
+		"yellow",
+		"blue",
+		"cyan",
+		"violet",
+		"blue",
+		"blue"
+	],
+	Twolip: [
+		"violet",
+		"red",
+		"red",
+		"red",
+		"violet",
+		"violet"
+	],
+	"Silly Lily": [
+		"cyan",
+		"red",
+		"violet",
+		"violet",
+		"violet",
+		"violet"
+	],
+	"Smarty Pansy": [
+		"orange",
+		"pink",
+		"pink",
+		"orange",
+		"blue",
+		"pink"
+	],
+	"Tinted Rose": [
+		"red",
+		"pink",
+		"orange",
+		"red",
+		"orange",
+		"pink"
+	],
+	"Crazy Daisy": [
+		"yellow",
+		"green",
+		"red",
+		"orange",
+		"green",
+		"green",
+		"green"
+	],
+	"Model Carnation": [
+		"pink",
+		"green",
+		"green",
+		"green",
+		"green",
+		"yellow",
+		"green"
+	],
+	"Indubitab Lily": [
+		"cyan",
+		"violet",
+		"cyan",
+		"blue",
+		"cyan",
+		"blue",
+		"blue"
+	],
+	"Car Petunia": [
+		"blue",
+		"violet",
+		"blue",
+		"violet",
+		"cyan",
+		"blue",
+		"blue"
+	],
+	"Stinking Rose": [
+		"red",
+		"cyan",
+		"orange",
+		"pink",
+		"violet",
+		"cyan",
+		"cyan"
+	],
+	"Hazy Dazy": [
+		"yellow",
+		"blue",
+		"violet",
+		"cyan",
+		"violet",
+		"red",
+		"orange",
+		"violet"
+	],
+	Threelip: [
+		"violet",
+		"yellow",
+		"yellow",
+		"violet",
+		"yellow",
+		"orange",
+		"violet",
+		"yellow"
+	],
+	"Dilly Lilly": [
+		"cyan",
+		"blue",
+		"yellow",
+		"yellow",
+		"cyan",
+		"blue",
+		"yellow",
+		"yellow"
+	],
+	Platoonia: [
+		"blue",
+		"pink",
+		"pink",
+		"blue",
+		"red",
+		"orange",
+		"yellow",
+		"yellow"
+	],
+	"Istilla Rose": [
+		"red",
+		"blue",
+		"violet",
+		"violet",
+		"blue",
+		"blue",
+		"pink",
+		"blue"
+	]
+};
+var flowerData = {
+	flowers: flowers
+};
+
 class FlowerCalculator {
     constructor(data) {
         /**
@@ -483,25 +1545,111 @@ class FlowerCalculator {
          *
          * @param {string} data: JSON containing the toon's flower progress.
          */
-        this.combos = null;
-        this.loadFlowerData();
+        this.combos = flowerData;
 
         this.toon = JSON.parse(data);
     }
-
-    async loadFlowerData() {
-        try {
-            const data = await import('./flowers_combos-YxqZ9M_R.js');
-            this.golf_info = data.flowers;
-        } catch (error) {
-            console.error('Error loading flower data:', error);
-        }
-    }
-
+    
     getCombo(num) {
         return Object.entries(this.combos).filter(([flower, combo]) => combo.length === num);
     }
 }
+
+var trophies$1 = [
+	{
+		description: "Courses Completed",
+		values: [
+			1,
+			10,
+			100
+		],
+		weight: 2
+	},
+	{
+		description: "Courses Under Par",
+		values: [
+			1,
+			10,
+			100
+		],
+		weight: 3
+	},
+	{
+		description: "Hole In One Shots",
+		values: [
+			1,
+			5,
+			50
+		],
+		weight: 4
+	},
+	{
+		description: "Eagle Or Better Shots",
+		values: [
+			1,
+			10,
+			100
+		],
+		weight: 6
+	},
+	{
+		description: "Birdie Or Better Shots",
+		values: [
+			3,
+			30,
+			300
+		],
+		weight: 5
+	},
+	{
+		description: "Par Or Better Shots",
+		values: [
+			4,
+			40,
+			400
+		],
+		weight: 4
+	},
+	{
+		description: "Multiplayer Courses Completed",
+		values: [
+			2,
+			20,
+			200
+		],
+		weight: 3
+	},
+	{
+		description: "Walk In The Par Wins",
+		values: [
+			1,
+			5,
+			25
+		],
+		weight: 2
+	},
+	{
+		description: "Hole Some Fun Wins",
+		values: [
+			1,
+			5,
+			25
+		],
+		weight: 4
+	},
+	{
+		description: "The Hole Kit And Caboodle Wins",
+		values: [
+			1,
+			5,
+			25
+		],
+		weight: 6
+	}
+];
+var golfData = {
+	trophies: trophies$1
+};
 
 class GolfCalculator {
     constructor(data) {
@@ -510,20 +1658,10 @@ class GolfCalculator {
          *
          * @param {string} data: JSON containing the toon's golf progress.
          */
-        this.golf_info = null;
-        this.loadGolfData;
+        this.golf_info = golfData;
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
-    }
-    
-    async loadGolfData() {
-        try {
-            const response = await import('./golf_trophies-CW_Ukt3a.js');
-            this.golf_info = response.trophies;
-        } catch (error) {
-            console.error('Error loading golf data:', error);
-        }
     }
 
     getBestTrophy() {
@@ -615,6 +1753,108 @@ class GolfCalculator {
         return trophies;
     }
 }
+
+var trophies = [
+	{
+		description: "Speedway Wins",
+		values: [
+			1,
+			5,
+			25
+		],
+		weight: 2
+	},
+	{
+		description: "Rural Wins",
+		values: [
+			1,
+			5,
+			25
+		],
+		weight: 4
+	},
+	{
+		description: "Urban Wins",
+		values: [
+			1,
+			5,
+			25
+		],
+		weight: 6
+	},
+	{
+		description: "Total Wins",
+		values: [
+			50
+		],
+		weight: 3
+	},
+	{
+		description: "Speedway Qualify Count",
+		values: [
+			1,
+			10,
+			50
+		],
+		weight: 1
+	},
+	{
+		description: "Rural Qualify Count",
+		values: [
+			1,
+			10,
+			50
+		],
+		weight: 2
+	},
+	{
+		description: "Urban Qualify Count",
+		values: [
+			1,
+			10,
+			50
+		],
+		weight: 4
+	},
+	{
+		description: "Total Qualify Count",
+		values: [
+			100
+		],
+		weight: 2
+	},
+	{
+		description: "Tournament Race Wins",
+		values: [
+			5
+		],
+		weight: 3
+	},
+	{
+		description: "Tournament Race Qualify Count",
+		values: [
+			1,
+			3,
+			5,
+			7,
+			9,
+			11,
+			13,
+			15
+		],
+		weight: 3
+	},
+	{
+		description: "Unique race tracks completed",
+		values: [
+			12
+		],
+		weight: 1
+	}
+];
+var raceData = {
+	trophies: trophies
+};
 
 class RacingCalculator {
     constructor(data) {
@@ -623,20 +1863,10 @@ class RacingCalculator {
          *
          *@param {string} data: JSON containing the toon's race progress.
          */
-        this.race_info = null;
-        this.loadRacingData();
-
+        this.race_info = raceData;
+        
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
-    }
-
-    async loadRacingData() {
-        try {
-            const response = await import('./race_trophies-BBYGx3HK.js');
-            this.race_info = response.trophies;
-        } catch (error) {
-            console.error('Error loading racing data:', error);
-        }
     }
 
     getBestTrophy() {
@@ -729,6 +1959,104 @@ class RacingCalculator {
     }
 }
 
+var suitTypes = {
+	c: {
+		name: "Bossbot",
+		facility: "cgc"
+	},
+	l: {
+		name: "Lawbot",
+		facility: "wing"
+	},
+	m: {
+		name: "Cashbot",
+		facility: "mint"
+	},
+	s: {
+		name: "Sellbot",
+		facility: "factory"
+	}
+};
+var facilities = {
+	cgc: [
+		{
+			name: "Final Fringe",
+			value: 2200,
+			weight: 25.75
+		},
+		{
+			name: "First Fairway",
+			value: 940,
+			weight: 18.71
+		},
+		{
+			name: "5 story Building",
+			value: 290,
+			weight: 12.67
+		}
+	],
+	wing: [
+		{
+			name: "Senior Wing",
+			value: 1950,
+			weight: 24.17
+		},
+		{
+			name: "Junior Wing",
+			value: 810,
+			weight: 17.67
+		},
+		{
+			name: "5 story Building",
+			value: 280,
+			weight: 12.67
+		}
+	],
+	mint: [
+		{
+			name: "Bullion Mint",
+			value: 1750,
+			weight: 21.8
+		},
+		{
+			name: "Coin Mint",
+			value: 750,
+			weight: 16.07
+		},
+		{
+			name: "5 story Building",
+			value: 270,
+			weight: 12.67
+		}
+	],
+	factory: [
+		{
+			name: "short Steel Factory",
+			value: 905,
+			weight: 12.4
+		},
+		{
+			name: "long Scrap Factory",
+			value: 600,
+			weight: 16.5
+		},
+		{
+			name: "short Scrap Factory",
+			value: 350,
+			weight: 9.64
+		},
+		{
+			name: "5 story Building",
+			value: 270,
+			weight: 12.67
+		}
+	]
+};
+var suitData = {
+	suitTypes: suitTypes,
+	facilities: facilities
+};
+
 class SuitsCalculator {
     constructor(data) {
         /**
@@ -736,19 +2064,9 @@ class SuitsCalculator {
          *
          * @param {string} data - JSON containing the toon's suits progress.
          */
-        this.suits_info = null;
-        this.loadSuitsData();
+        this.suits_info = suitData;
 
         this.toon = JSON.parse(data);
-    }
-
-    async loadSuitsData() {
-        try {
-            const response = await import('./suits-RM8e3DZr.js');
-            this.suits_info = response;
-        } catch (error) {
-            console.error('Error loading suits data:', error);
-        }
     }
 
     getCurrent(department) {

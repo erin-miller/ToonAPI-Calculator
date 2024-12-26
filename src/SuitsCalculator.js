@@ -1,3 +1,4 @@
+import suitData from '../data/suits.json' assert { type: 'json' };;
 export default class SuitsCalculator {
     constructor(data) {
         /**
@@ -5,19 +6,9 @@ export default class SuitsCalculator {
          *
          * @param {string} data - JSON containing the toon's suits progress.
          */
-        this.suits_info = null;
-        this.loadSuitsData();
+        this.suits_info = suitData;
 
         this.toon = JSON.parse(data);
-    }
-
-    async loadSuitsData() {
-        try {
-            const response = await import('../data/suits.json');
-            this.suits_info = response;
-        } catch (error) {
-            console.error('Error loading suits data:', error);
-        }
     }
 
     getCurrent(department) {

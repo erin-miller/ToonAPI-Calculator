@@ -1,3 +1,4 @@
+import golfData from '../data/golf_trophies.json' assert { type: 'json' };;
 export default class GolfCalculator {
     constructor(data) {
         /**
@@ -5,20 +6,10 @@ export default class GolfCalculator {
          *
          * @param {string} data: JSON containing the toon's golf progress.
          */
-        this.golf_info = null;
-        this.loadGolfData;
+        this.golf_info = golfData;
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
-    }
-    
-    async loadGolfData() {
-        try {
-            const response = await import('../data/golf_trophies.json');
-            this.golf_info = response.trophies;
-        } catch (error) {
-            console.error('Error loading golf data:', error);
-        }
     }
 
     getBestTrophy() {
