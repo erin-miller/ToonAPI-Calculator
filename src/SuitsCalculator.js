@@ -54,6 +54,14 @@ export default class SuitsCalculator {
             };
         }
 
+        if (toonInfo.level == 50) {
+            return {
+                path: [],
+                total: -3,
+                message: "Toon has a maxed suit."
+            };
+        }
+
         if (toonInfo.promotion.target === toonInfo.promotion.current) {
             return {
                 path: [],
