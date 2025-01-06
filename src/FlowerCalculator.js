@@ -6,7 +6,8 @@ export default class FlowerCalculator {
          *
          * @param {string} data: JSON containing the toon's flower progress.
          */
-        this.combos = flowerData;
+        this.combos = flowerData.flowers;
+        console.log(this.combos)
 
         this.toon = JSON.parse(data);
     }
