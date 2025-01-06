@@ -16,6 +16,9 @@ export default class SuitsCalculator {
          * @param {string} department - Value in [c,l,m,s]
          * @returns Toon's current promo experience
          */
+        if (this.toon.level == 50) {
+            return 0;
+        }
         return this.toon[department].promotion.current;
     }
 
@@ -24,6 +27,9 @@ export default class SuitsCalculator {
          * @param {string} department - Value in [c,l,m,s]
          * @returns Toon's current target experience
          */
+        if (this.toon.level == 50) {
+            return 0;
+        }
         return this.toon[department].promotion.target;
     }
 
