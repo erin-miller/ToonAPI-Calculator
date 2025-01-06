@@ -6,7 +6,7 @@ export default class GolfCalculator {
          *
          * @param {string} data: JSON containing the toon's golf progress.
          */
-        this.golf_info = golfData;
+        this.golf_info = golfData.trophies;
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));

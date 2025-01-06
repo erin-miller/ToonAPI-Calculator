@@ -7,7 +7,7 @@ export default class RacingCalculator {
          *
          *@param {string} data: JSON containing the toon's race progress.
          */
-        this.race_info = raceData;
+        this.race_info = raceData.trophies;
 
         this.toon = JSON.parse(data);
         this.toon = Object.fromEntries(this.toon.map(trophy => [trophy.name, trophy.num]));
