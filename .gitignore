@@ -1,9 +1,9 @@
-node_modules# Node.js dependencies
+# Node.js dependencies
 /node_modules/
 
-# Build outputs
-/dist/
-/build/
+# Build outputs (ignore only if you don't want to commit the build artifacts)
+# If you want to commit the dist files, don't ignore them
+# /dist/
 
 # Logs
 *.log
@@ -40,6 +40,15 @@ yarn-debug.log*
 yarn-error.log*
 
 # Others
-/py/
 test.js
 *.txt
+
+# Rollup config and npm lock files (if you don't want them tracked)
+rollup.config.js
+package-lock.json
+
+# Git directories (redundant, but included for clarity)
+/.git/
+/.github/
+
+/test/      # Ignore test files

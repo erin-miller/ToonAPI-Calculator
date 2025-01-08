@@ -1,3 +1,4 @@
+import suitData from '../data/suits.json' assert { type: 'json' };;
 export default class SuitsCalculator {
     constructor(data) {
         /**
@@ -5,19 +6,9 @@ export default class SuitsCalculator {
          *
          * @param {string} data - JSON containing the toon's suits progress.
          */
-        this.suits_info = null;
-        this.loadSuitsData();
+        this.suits_info = suitData;
 
         this.toon = JSON.parse(data);
-    }
-
-    async loadSuitsData() {
-        try {
-            const response = await import('/data/suits.json');
-            this.suits_info = response;
-        } catch (error) {
-            console.error('Error loading suits data:', error);
-        }
     }
 
     getCurrent(department) {
@@ -25,6 +16,9 @@ export default class SuitsCalculator {
          * @param {string} department - Value in [c,l,m,s]
          * @returns Toon's current promo experience
          */
+        if (this.toon.level == 50) {
+            return 0;
+        }
         return this.toon[department].promotion.current;
     }
 
@@ -33,6 +27,9 @@ export default class SuitsCalculator {
          * @param {string} department - Value in [c,l,m,s]
          * @returns Toon's current target experience
          */
+        if (this.toon.level == 50) {
+            return 0;
+        }
         return this.toon[department].promotion.target;
     }
 
@@ -60,6 +57,14 @@ export default class SuitsCalculator {
                 path: [],
                 total: -1,
                 message: "Toon does not have a disguise."
+            };
+        }
+
+        if (toonInfo.level == 50) {
+            return {
+                path: [],
+                total: -3,
+                message: "Toon has a maxed suit."
             };
         }
 

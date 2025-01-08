@@ -1,3 +1,6 @@
+import fishData from '../data/fish.json' assert { type: 'json' };
+import locData from '../data/locations.json' assert { type: 'json' };
+
 export default class FishCalculator {
     constructor(data) {
         /**
@@ -5,35 +8,15 @@ export default class FishCalculator {
          * 
          * @param {string} data: Json containing the toon's fish progress.
          */
-        this.fishingInfo = null;
-        this.loadFishData();
+        this.fishingInfo = fishData;
 
-        this.locationInfo = null;
-        this.loadLocationData();
+        this.locationInfo = locData;
 
         const toon = JSON.parse(data);
         this.rodInfo = this.fishingInfo.rods[toon.rod.name];
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
         this.bonus = 1.1;
-    }
-
-    async loadFishData() {
-        try {
-            const response = await import('/data/fish.json');
-            this.fishingInfo = response;
-        } catch (error) {
-            console.error('Error loading fish data:', error);
-        }
-    }
-
-    async loadLocationData() {
-        try {
-            const response = await import('/data/locations.json');
-            this.locationInfo = response;
-        } catch (error) {
-            console.error('Error loading locations data:', error);
-        }
     }
 
     sortBestLocation() {

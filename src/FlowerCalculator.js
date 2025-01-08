@@ -1,3 +1,4 @@
+import flowerData from '../data/flowers_combos.json' assert { type: 'json' };;
 export default class FlowerCalculator {
     constructor(data) {
         /**
@@ -5,19 +6,8 @@ export default class FlowerCalculator {
          *
          * @param {string} data: JSON containing the toon's flower progress.
          */
-        this.combos = null;
-        this.loadFlowerData();
-
+        this.combos = flowerData.flowers;
         this.toon = JSON.parse(data);
-    }
-
-    async loadFlowerData() {
-        try {
-            const data = await import('/data/flowers_combos.json');
-            this.golf_info = data.flowers;
-        } catch (error) {
-            console.error('Error loading flower data:', error);
-        }
     }
 
     getCombo(num) {
