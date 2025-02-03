@@ -17,7 +17,7 @@ export default class FishCalculator {
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
         this.bonus = 1.1;
-        this.minsToCapacity = 4; // time in minutes to fill bucket
+        this.minsToCapacity = 3; // time in minutes to fill bucket
     }
 
     sortBestLocation() {
