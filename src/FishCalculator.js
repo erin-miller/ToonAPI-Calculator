@@ -17,6 +17,7 @@ export default class FishCalculator {
         this.caught = this.#getCaughtBy(toon);
         this.catchable = this.getCatchable();
         this.bonus = 1.1;
+        this.minsToCapacity = 3; // time in minutes to fill bucket
     }
 
     sortBestLocation() {
@@ -179,16 +180,27 @@ export default class FishCalculator {
          * @returns estimated number of buckets
          */
         if (total >= 1) {
-            return 1;
+            total = 1
+            return { confBuckets: total, confTime: total * this.minsToCapacity, avgBuckets: total, avgTime: total * this.minsToCapacity}
         } else if (total <= 0) {
-            return 0;
+            total = 0;
+            return { confBuckets: total, confTime: total * this.minsToCapacity, avgBuckets: total, avgTime: total * this.minsToCapacity}
         }
         const confidence = 1 - 0.90;
         const bucketCapacity = 20;
         const missProb = 1 - total;
 
-        const attempts = Math.log(confidence) / Math.log(missProb);
-        return Math.ceil(attempts / bucketCapacity);
+        const confAttempts = Math.log(confidence) / Math.log(missProb);
+        const confBuckets = Math.ceil(confAttempts / bucketCapacity);
+        const confTime = confBuckets * this.minsToCapacity;
+
+        // determine average time using geometric series
+        // Expected value calculation (1/p)
+        const avgAttempts = 1 / total;
+        const avgBuckets = Math.ceil(avgAttempts / bucketCapacity);
+        const avgTime = avgBuckets * this.minsToCapacity;
+
+        return { confBuckets, confTime, avgBuckets, avgTime };
     }
 
     #getBuckets(fish) {
@@ -198,13 +210,24 @@ export default class FishCalculator {
          * @param {Object[]} fish - desired fish
          * @returns estimated number of buckets
          */
+
+        // determine 90% chance of catching in X buckets
         const confidence = 1 - 0.90;
         const bucketCapacity = 20;
         const catchProb = fish.probability;
         const missProb = 1 - catchProb;
 
-        const attempts = Math.log(confidence) / Math.log(missProb);
-        return Math.ceil(attempts / bucketCapacity);
+        const confAttempts = Math.log(confidence) / Math.log(missProb);
+        const confBuckets = Math.ceil(confAttempts / bucketCapacity);
+        const confTime = confBuckets * this.minsToCapacity;
+
+        // determine average time using geometric series
+        // Expected value calculation (1/p)
+        const avgAttempts = 1 / catchProb;
+        const avgBuckets = Math.ceil(avgAttempts / bucketCapacity);
+        const avgTime = avgBuckets * this.minsToCapacity;
+
+        return { confBuckets, confTime, avgBuckets, avgTime };
     }
 
     #getByLocationRarity(location, rarity) {
