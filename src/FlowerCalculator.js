@@ -1,4 +1,6 @@
-import flowerData from '../data/flowers_combos.json' assert { type: 'json' };;
+import flowerCombos from '../data/flowers_combos.json' assert { type: 'json' };;
+import gardenData from '../data/flowers.json' assert { type: 'json' }; 
+
 export default class FlowerCalculator {
     constructor(data) {
         /**
@@ -6,7 +8,9 @@ export default class FlowerCalculator {
          *
          * @param {string} data: JSON containing the toon's flower progress.
          */
-        this.combos = flowerData.flowers;
+        this.combos = flowerCombos.flowers;
+        this.tiers = gardenData.flowers;
+        this.shovels = gardenData.shovels;
         this.toon = JSON.parse(data);
     }
 
@@ -44,9 +48,28 @@ export default class FlowerCalculator {
 
     getMissingFlowers() {
         /** TODO:
-         * Finds the toon's missing flowerd, including ones they can't plant
+         * Finds the toon's missing flowers, including ones they can't plant
          * @return all missing flower combos
          */
+        const flowers = [];
+        for (const flower in this.combos) {
+            let isOwned = false;
+    
+            for (const id in this.toon.collection) {
+                const flower = this.toon.collection[id];
+    
+                if (Object.entries(flower.album).includes(flower)) {
+                    isOwned = true;
+                    break; // No need to continue checking this flower
+                }
+            }
+    
+            if (!isOwned) {
+                flowers.push({ name: flower, combo: this.combos[flower]});
+            }
+        }
+    
+        return flowers;
     }
 
     getMissingAvailableFlowers() {
@@ -75,7 +98,7 @@ export default class FlowerCalculator {
             const flower = this.toon.collection[id];
             Object.entries(flower.album).forEach(combo => {
                 if (this.combos[combo[1]]) {
-                    flowers.push({ flower: combo[1], combo: this.combos[combo[1]] });
+                    flowers.push({ name: combo[1], combo: this.combos[combo[1]] });
                 }
             });
         }
