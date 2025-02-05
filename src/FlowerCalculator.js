@@ -24,14 +24,14 @@ export default class FlowerCalculator {
         /**
          * @return the watering can name, current skill, and max skill
          */
-        return [toon.wateringCan.name, toon.wateringCan.curSkill, toon.wateringCan.maxSkill];
+        return [this.toon.wateringCan.name, this.toon.wateringCan.curSkill, this.toon.wateringCan.maxSkill];
     }
 
     getShovel() {
         /**
          * @return the shovel name, current skill, and max skill
          */
-        return [toon.shovel.name, toon.shovel.curSkill, toon.shovel.maxSkill]
+        return [this.toon.shovel.name, this.toon.shovel.curSkill, this.toon.shovel.maxSkill]
     }
 
     getHighestCombo() {
