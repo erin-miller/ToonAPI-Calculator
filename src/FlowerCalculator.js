@@ -1,5 +1,5 @@
 import flowerCombos from '../data/flowers_combos.json' assert { type: 'json' };;
-import gardenData from '../data/flowers.json' assert { type: 'json' }; 
+import gardenData from '../data/flowers.json' assert { type: 'json' };
 
 export default class FlowerCalculator {
     constructor(data) {
@@ -47,29 +47,15 @@ export default class FlowerCalculator {
     }
 
     getMissingFlowers() {
-        /** TODO:
+        /** 
          * Finds the toon's missing flowers, including ones they can't plant
          * @return all missing flower combos
          */
-        const flowers = [];
-        for (const flower in this.combos) {
-            let isOwned = false;
-    
-            for (const id in this.toon.collection) {
-                const flower = this.toon.collection[id];
-    
-                if (Object.entries(flower.album).includes(flower)) {
-                    isOwned = true;
-                    break; // No need to continue checking this flower
-                }
-            }
-    
-            if (!isOwned) {
-                flowers.push({ name: flower, combo: this.combos[flower]});
-            }
-        }
-    
-        return flowers;
+        const earned = new Set(this.getEarnedFlowers().map(flower => flower.name));
+
+        return Object.fromEntries(
+            Object.entries(this.combos).filter(([flowerName]) => !earned.has(flowerName))
+        );
     }
 
     getMissingAvailableFlowers() {
