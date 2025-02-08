@@ -61,7 +61,6 @@ export default class FlowerCalculator {
     );
 }
 
-
   getMissingFlowers() {
     /**
      * Finds the toon's missing flowers, including ones they can't plant
