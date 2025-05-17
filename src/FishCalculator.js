@@ -1,5 +1,8 @@
-import fishData from "../data/fish.json" assert { type: "json" };
-import locData from "../data/locations.json" assert { type: "json" };
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const fishData = require("../data/fish.json");
+const locData = require("../data/locations.json");
 
 export default class FishCalculator {
   constructor(data) {

@@ -1,4 +1,7 @@
-import golfData from "../data/golf_trophies.json" assert { type: "json" };
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const golfData = require("../data/golf_trophies.json");
 export default class GolfCalculator {
   constructor(data) {
     /**

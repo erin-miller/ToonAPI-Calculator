@@ -1,4 +1,7 @@
-import suitData from "../data/suits.json" assert { type: "json" };
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const suitData = require("../data/suits.json");
 export default class SuitsCalculator {
   constructor(data) {
     /**
