@@ -1,5 +1,8 @@
-import flowerCombos from "../data/flowers_combos.json" assert { type: "json" };
-import gardenData from "../data/flowers.json" assert { type: "json" };
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const flowerCombos = require("../data/flowers_combos.json");
+const gardenData = require("../data/flowers.json");
 
 export default class FlowerCalculator {
   constructor(data) {
@@ -57,9 +60,11 @@ export default class FlowerCalculator {
     const maxCombo = this.getComboLevel();
 
     return Object.fromEntries(
-        Object.entries(this.combos).filter(([name, combo]) => combo.length === maxCombo)
+      Object.entries(this.combos).filter(
+        ([name, combo]) => combo.length === maxCombo
+      )
     );
-}
+  }
 
   getMissingFlowers() {
     /**

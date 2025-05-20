@@ -1,4 +1,7 @@
-import raceData from "../data/race_trophies.json" assert { type: "json" };
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const raceData = require("../data/race_trophies.json");
 
 export default class RacingCalculator {
   constructor(data) {
