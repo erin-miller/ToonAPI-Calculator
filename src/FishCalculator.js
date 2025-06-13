@@ -35,24 +35,33 @@ export default class FishCalculator {
     let buckets;
 
     for (const [location, rarities] of Object.entries(locations)) {
-      const total = Math.min(
-        Object.values(rarities).reduce((sum, value) => sum + value, 0),
-        1
-      );
-      buckets = this.#getBucketsByLocation(total);
+      const availRarities = Object.keys(rarities);
+      // only sum probabilities for rarities that have fish
+      if (availRarities.length > 0) {
+        const totalAvail = availRarities.reduce((sum, rarity) => {
+          return sum + this.rodInfo.probability[rarity - 1];
+        }, 0);
 
-      if (buckets !== 0) {
-        const playground = Object.entries(this.locationInfo).find(
-          ([pg, streets]) => streets.includes(location)
+        const total = Object.values(rarities).reduce(
+          (sum, value) => sum + value,
+          0
         );
+        const normalizedTotal = total / totalAvail;
 
-        if (playground) {
-          const playgroundProb = bestLocation[playground[0]]?.total || 0;
-          // Exclude street if it has the same probability as the playground
-          if (playgroundProb === total) continue;
+        if (normalizedTotal !== 0) {
+          const playground = Object.entries(this.locationInfo).find(
+            ([pg, streets]) => streets.includes(location)
+          );
+
+          if (playground) {
+            const playgroundProb = bestLocation[playground[0]]?.total || 0;
+            // Exclude street if it has the same probability as the playground
+            if (playgroundProb === normalizedTotal) continue;
+          }
+
+          buckets = this.#getBucketsByLocation(normalizedTotal);
+          bestLocation[location] = { total: normalizedTotal, buckets };
         }
-
-        bestLocation[location] = { total, buckets };
       }
     }
 
@@ -331,8 +340,6 @@ export default class FishCalculator {
           (fish) => !this.caught.includes(fish.name)
         );
         data[rarity] = rodRarity * (newFish.length / totalFish);
-      } else {
-        data[rarity] = 0;
       }
     }
     return data;
