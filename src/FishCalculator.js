@@ -345,14 +345,15 @@ export default class FishCalculator {
     return data;
   }
 
-  #checkBonus(fish, loc) {
+  #checkBonus(fish, loc, related) {
     /**
      * Applies probability bonus if applicable.
      * @param fish to check
      * @param loc to check
+     * @param related fish with same loc and rarity
      * @returns probability multiplier
      */
-    if (fish.bonus && fish.bonus === loc) {
+    if (fish.bonus && fish.bonus === loc && related.length > 1) {
       return this.bonus;
     } else {
       return 1;
@@ -488,7 +489,7 @@ export default class FishCalculator {
             // add pg fish to every street related
             const prob =
               this.#getRodRarity(fish, playground) *
-              this.#checkBonus(fish, playground);
+              this.#checkBonus(fish, playground, related);
             for (let street of streets) {
               const existing = probabilities.find(
                 (entry) => entry.name === fish.name && entry.location === street
@@ -510,7 +511,8 @@ export default class FishCalculator {
               this.#getRarity(fish, loc)
             );
             const prob =
-              this.#getRodRarity(fish, loc) * this.#checkBonus(fish, loc);
+              this.#getRodRarity(fish, loc) *
+              this.#checkBonus(fish, loc, related);
 
             probabilities.push({
               name: fish.name,
