@@ -76,7 +76,9 @@ export default class FishCalculator {
      */
     let probabilities = [];
     for (const fish of this.getNew()) {
-      probabilities.push(this.#getHighestProbability(fish));
+      const curr = this.#getHighestProbability(fish);
+      curr.rarity = this.#getRarity(fish, curr.location);
+      probabilities.push(curr);
     }
     return probabilities.sort((a, b) => b.probability - a.probability);
   }
