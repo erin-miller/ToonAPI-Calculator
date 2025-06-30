@@ -431,7 +431,9 @@ export default class FishCalculator {
      * @param {String} loc to determine rarity index of
      * @returns rarity
      */
-    const rarity = fish.rarity + fish.locations.indexOf(loc);
+    const locIdx = fish.locations.indexOf(loc)
+    const adjLoc = locIdx !== -1 ? locIdx : 0
+    const rarity = fish.rarity + adjLoc;
     return rarity < 10 ? rarity : 10;
   }
 
